@@ -22,7 +22,7 @@ class _SearchBarrState extends ConsumerState<SearchBarr> {
       height: 44,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: ShapeDecoration(
-        color: Color(0xFFF2F4F7),
+        color: const Color(0xFFF2F4F7),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
@@ -32,7 +32,7 @@ class _SearchBarrState extends ConsumerState<SearchBarr> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             16.wSpace,
-            MyIcon(
+            const MyIcon(
               icon: 'search',
               height: 16,
               color: Colors.black,
@@ -56,7 +56,7 @@ class _SearchBarrState extends ConsumerState<SearchBarr> {
                 decoration: InputDecoration(
                   hintText: 'Search bugs fixes',
                   hintStyle: GoogleFonts.inter(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                       fontSize: 14,
                       color: Color(0xFF9CA3AF),
                       fontWeight: FontWeight.w500,

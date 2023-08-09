@@ -51,7 +51,7 @@ class BButton extends StatelessWidget {
           padding: padding ?? EdgeInsets.zero,
           elevation: 0,
           shadowColor: Colors.transparent,
-          backgroundColor: color ?? Color(0xFF294EAB),
+          backgroundColor: color ?? const Color(0xFF294EAB),
         ),
         child: Center(
           child: isText == true

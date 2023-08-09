@@ -3,19 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:traq/features/base_nav/widgets/base_nav_view.desktopcontroller.dart';
 import 'package:traq/features/base_nav/widgets/nav_bar_widget.dart';
 import 'package:traq/features/base_nav/widgets/search_bar.dart';
 import 'package:traq/features/base_nav/widgets/side_nav.dart';
-import 'package:traq/features/dashboard/views/dashboard_view.dart';
 import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_constants.dart';
 import 'package:traq/utils/app_extensions.dart';
 import 'package:traq/utils/button.dart';
-import 'package:traq/utils/widgets/image_loader.dart';
-import 'package:traq/utils/widgets/image_overlay.dart';
 import 'package:traq/utils/widgets/myicon.dart';
 
 part '../views/base_nav_view.controller.dart';
@@ -26,7 +22,9 @@ class BaseNavWrapper extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     int indexFromController = ref.watch(baseNavControllerProvider);
-    ThemeData currentTheme = ref.watch(themeNotifierProvider);
+    int indexFromDesktopController =
+        ref.watch(baseNavDesktopControllerProvider);
+   
     // String? imageOverlay = ref.watch(imageOverlayControllerProvider);
     return Stack(
       children: [
@@ -65,9 +63,9 @@ class BaseNavWrapper extends ConsumerWidget {
               child: Row(
                 children: [
                   //! side nav
-                 const SideNav(),
+                  const SideNav(),
 
-                 //! body
+                  //! body
                   Expanded(
                     flex: 6,
                     child: SizedBox(
@@ -134,9 +132,9 @@ class BaseNavWrapper extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          const Expanded(
+                          Expanded(
                             flex: 8,
-                            child: DashBoardView(),
+                            child: deskTopPages[indexFromDesktopController],
                           ),
                         ],
                       ),
@@ -154,4 +152,3 @@ class BaseNavWrapper extends ConsumerWidget {
     );
   }
 }
-

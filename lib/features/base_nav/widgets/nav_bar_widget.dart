@@ -15,7 +15,7 @@ class NavBarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ThemeData currentTheme = ref.watch(themeNotifierProvider);
+  
     int indexFromController = ref.watch(baseNavControllerProvider);
     // if (nav.index > 2) {
     //   indexFromController = indexFromController + 1;
