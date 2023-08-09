@@ -1,17 +1,24 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:traq/utils/app_extensions.dart';
 import 'package:traq/utils/widgets/bug_card.dart';
 import 'package:traq/utils/widgets/myicon.dart';
 
-class DashBoardView extends ConsumerStatefulWidget {
-  const DashBoardView({super.key});
+class ProjectDesktopView extends ConsumerStatefulWidget {
+  final String projectTitle;
+  const ProjectDesktopView({
+    super.key,
+    required this.projectTitle,
+  });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _DashBoardViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ProjectDesktopViewState();
 }
 
-class _DashBoardViewState extends ConsumerState<DashBoardView> {
+class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,163 +28,21 @@ class _DashBoardViewState extends ConsumerState<DashBoardView> {
       child: SizedBox(
         width: double.infinity,
         child: SingleChildScrollView(
-          // physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //! dashboard
-              'DashBoard'.txt(
+              widget.projectTitle.toTitleCase().txt(
                 isheader: true,
                 size: 32,
                 fontWeight: FontWeight.w600,
               ),
-              40.hSpace,
+              4.hSpace,
 
               //! overview
-              'Overview'.toUpperCase().txt14(
+              'Created on August 7, 2023'.toUpperCase().txt14(
                     fontWeight: FontWeight.w500,
                   ),
-              16.hSpace,
-
-              //! active projects
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    //! active projects card
-                    Container(
-                      width: 280,
-                      height: 160,
-                      padding: const EdgeInsets.all(16),
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                            width: 0.50,
-                            color: Color(0xFFF2F4F7),
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Color(0xFFFFFBEB),
-                            child: MyIcon(icon: 'active'),
-                          ),
-                          16.hSpace,
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              'Active Projects'.txt14(),
-                              4.hSpace,
-                              '2'.txt24(
-                                isheader: true,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    32.wSpace,
-
-                    //! active bugs card
-                    Container(
-                      width: 280,
-                      height: 160,
-                      padding: const EdgeInsets.all(16),
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                            width: 0.50,
-                            color: Color(0xFFF2F4F7),
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Color(0xFFF7F4FF),
-                            child: MyIcon(icon: 'hourglass'),
-                          ),
-                          16.hSpace,
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              'Active Bugs'.txt14(),
-                              4.hSpace,
-                              '2'.txt24(
-                                isheader: true,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    32.wSpace,
-
-                    //! resolved bugs card
-                    Container(
-                      width: 280,
-                      height: 160,
-                      padding: const EdgeInsets.all(16),
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                            width: 0.50,
-                            color: Color(0xFFF2F4F7),
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Color(0xFFF0FDF4),
-                            child: MyIcon(icon: 'resolved'),
-                          ),
-                          16.hSpace,
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              'Resolved Bugs'.txt14(),
-                              4.hSpace,
-                              '2'.txt24(
-                                isheader: true,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    32.wSpace,
-                  ],
-                ),
-              ),
 
               40.hSpace,
 

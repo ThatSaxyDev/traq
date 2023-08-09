@@ -7,6 +7,7 @@ import 'package:traq/features/base_nav/widgets/base_nav_view.desktopcontroller.d
 import 'package:traq/features/base_nav/widgets/nav_bar_widget.dart';
 import 'package:traq/features/base_nav/widgets/search_bar.dart';
 import 'package:traq/features/base_nav/widgets/side_nav.dart';
+import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
 import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_constants.dart';
@@ -22,9 +23,11 @@ class BaseNavWrapper extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     int indexFromController = ref.watch(baseNavControllerProvider);
+    ProjectStuff? projectPageFromController =
+        ref.watch(projectNavControllerProvider);
     int indexFromDesktopController =
         ref.watch(baseNavDesktopControllerProvider);
-   
+
     // String? imageOverlay = ref.watch(imageOverlayControllerProvider);
     return Stack(
       children: [
@@ -133,9 +136,13 @@ class BaseNavWrapper extends ConsumerWidget {
                             ),
                           ),
                           Expanded(
-                            flex: 8,
-                            child: deskTopPages[indexFromDesktopController],
-                          ),
+                              flex: 8,
+                              child: switch (
+                                  projectPageFromController == null) {
+                                true =>
+                                  deskTopPages[indexFromDesktopController],
+                                false => projectPageFromController!.view
+                              }),
                         ],
                       ),
                     ),

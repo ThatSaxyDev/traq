@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:simple_notifier/simple_notifier.dart';
 import 'package:traq/features/base_nav/views/base_nav_view.dart';
 import 'package:traq/features/base_nav/widgets/base_nav_view.desktopcontroller.dart';
-import 'package:traq/features/dashboard/views/dashboard_view.dart';
+import 'package:traq/features/dashboard/views/dashboard_desktop_view.dart';
+import 'package:traq/features/projects/views/project_dektop_view.dart';
+import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
+import 'package:traq/features/reports/views/reports_desktop_view.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_constants.dart';
 import 'package:traq/utils/app_extensions.dart';
@@ -24,6 +27,8 @@ class _SideNavState extends ConsumerState<SideNav> {
   Widget build(BuildContext context) {
     int indexFromDesktopController =
         ref.watch(baseNavDesktopControllerProvider);
+    ProjectStuff? projectPageFromController =
+        ref.watch(projectNavControllerProvider);
 
     return Expanded(
       flex: 1,
@@ -41,7 +46,11 @@ class _SideNavState extends ConsumerState<SideNav> {
           child: Column(
             children: [
               16.hSpace,
-              'Traq'.txt(size: 32),
+              'Traq'.txt(
+                size: 32,
+                fontWeight: FontWeight.w700,
+                color: Pallete.blueColor,
+              ),
               60.hSpace,
               //! dashboard
               Container(
@@ -77,6 +86,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 0);
               }),
 
@@ -130,9 +140,14 @@ class _SideNavState extends ConsumerState<SideNav> {
                         (index) => Container(
                           height: 36,
                           margin: const EdgeInsets.only(left: 40),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            border: Border(
+                          decoration: BoxDecoration(
+                            color: switch (projectPageFromController != null &&
+                                projectPageFromController.title ==
+                                    projects[index]) {
+                              true => Pallete.blueColor,
+                              false => null,
+                            },
+                            border: const Border(
                               left: BorderSide(
                                 width: 0.50,
                                 color: Color(0xFFE5E7EB),
@@ -142,24 +157,42 @@ class _SideNavState extends ConsumerState<SideNav> {
                           child: Row(
                             children: [
                               36.wSpace,
-                              const MyIcon(
+                              MyIcon(
                                 height: 20,
                                 icon: 'folder',
-                                // color: switch (indexFromDesktopController) {
-                                //   1 => Pallete.whiteColor,
-                                //   _ => null,
-                                // },
+                                color: switch (
+                                    projectPageFromController != null &&
+                                        projectPageFromController.title ==
+                                            projects[index]) {
+                                  true => Pallete.whiteColor,
+                                  false => null,
+                                },
                               ),
                               12.wSpace,
-                              projects[index].txt14(fontWeight: FontWeight.w500
-                                  // color: switch (indexFromDesktopController) {
-                                  //   1 => Pallete.whiteColor,
-                                  //   _ => null,
-                                  // },
-                                  ),
+                              projects[index].txt14(
+                                fontWeight: FontWeight.w500,
+                                color: switch (
+                                    projectPageFromController != null &&
+                                        projectPageFromController.title ==
+                                            projects[index]) {
+                                  true => Pallete.whiteColor,
+                                  false => null,
+                                },
+                              ),
                             ],
                           ),
                         ).tap(onTap: () {
+                          moveToProjectPage(
+                              context: context,
+                              ref: ref,
+                              view: ProjectStuff(
+                                view: ProjectDesktopView(
+                                  projectTitle: projects[index],
+                                ),
+                                title: projects[index],
+                              ));
+
+                          //! move index of base nav away
                           moveToPage(context: context, ref: ref, index: 1);
                         }),
                       ),
@@ -202,6 +235,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 2);
               }),
 
@@ -239,6 +273,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 3);
               }),
               40.hSpace,
@@ -266,15 +301,16 @@ List<DashboardItem> dashBoardItems = [
 
 //! List of pages
 List<Widget> deskTopPages = [
-  const DashBoardView(),
+  const DashBoardDesktopView(),
   Center(
     child: 'zz'.txt(size: 12),
   ),
-  Center(
-    child: 'wfwe'.txt(size: 12),
-  ),
+  const ReportsDesktopView(),
   Center(
     child: 'hq3f2ftgme'.txt(size: 12),
+  ),
+  Center(
+    child: 'test'.txt(size: 12),
   ),
 ];
 
