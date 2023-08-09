@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 void showPicker(BuildContext context, Widget child) {
   showCupertinoModalPopup<void>(
@@ -16,7 +16,7 @@ void showPicker(BuildContext context, Widget child) {
       ),
       decoration: BoxDecoration(
         color: CupertinoColors.systemBackground.resolveFrom(context),
-        borderRadius: BorderRadius.circular(15.r)
+        borderRadius: BorderRadius.circular(15.sw)
       ),
       // Provide a background color for the popup.
 

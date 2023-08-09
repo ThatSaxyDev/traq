@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "232209430206",
+    "project_id": "traq-3574d",
+    "storage_bucket": "traq-3574d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232209430206:android:80ca8746abae20932a90ef",
+        "android_client_info": {
+          "package_name": "app.kiishidart.traq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232209430206-lrikcmo65lgm5lddtgp0g53ic07qrc0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.kiishidart.traq",
+            "certificate_hash": "ca26560740d0472113c1786109bcc24c617f24b8"
+          }
+        },
+        {
+          "client_id": "232209430206-0dkoo0i8f2mlmmb4pq316fds7agcimt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9o7ysbngMVP_lq70cWn79PeJiepXMlKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232209430206-0dkoo0i8f2mlmmb4pq316fds7agcimt6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "232209430206-em96p54oq6jvl3hathu3skp5et3dtfrc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.kiishidart.traq"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

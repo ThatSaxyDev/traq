@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-
 
 class BButton extends StatelessWidget {
   final double? height;
@@ -36,7 +34,7 @@ class BButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 48.h,
+      height: height ?? 52,
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
@@ -47,13 +45,13 @@ class BButton extends StatelessWidget {
               color: borderColor ?? Colors.transparent,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 8.r),
+              Radius.circular(radius ?? 4),
             ),
           ),
           padding: padding ?? EdgeInsets.zero,
           elevation: 0,
           shadowColor: Colors.transparent,
-          backgroundColor: color ?? Pallete.orange,
+          backgroundColor: color ?? Color(0xFF294EAB),
         ),
         child: Center(
           child: isText == true
@@ -61,7 +59,7 @@ class BButton extends StatelessWidget {
                   text ?? '',
                   style: TextStyle(
                     color: textColor ?? Pallete.whiteColor,
-                    fontSize: 16.sp,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -100,7 +98,7 @@ class TransparentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 48.h,
+      height: height ?? 48.sh,
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
@@ -111,7 +109,7 @@ class TransparentButton extends StatelessWidget {
               color: color ?? Pallete.greey,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 8.r),
+              Radius.circular(radius ?? 8.sw),
             ),
           ),
           elevation: 0,
@@ -125,7 +123,7 @@ class TransparentButton extends StatelessWidget {
                   text ?? '',
                   style: TextStyle(
                     color: textColor ?? Pallete.blackColor,
-                    fontSize: 14.sp,
+                    fontSize: 14.sw,
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -211,8 +209,8 @@ class TTransparentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 33.3.h,
-      width: 40.w,
+      height: 33.3.sh,
+      width: 40.sw,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
@@ -222,7 +220,7 @@ class TTransparentButton extends StatelessWidget {
                 color: color,
               ),
               borderRadius: BorderRadius.all(
-                Radius.circular(5.r),
+                Radius.circular(5.sw),
               ),
             ),
             elevation: 0,

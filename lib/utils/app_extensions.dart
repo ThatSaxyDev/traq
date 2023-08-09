@@ -3,8 +3,9 @@ import "dart:developer" as dev_tools show log;
 import "dart:io";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
-import "package:flutter_screenutil/flutter_screenutil.dart";
+import "package:google_fonts/google_fonts.dart";
 import "package:intl/intl.dart";
+import "package:responsive_builder/responsive_builder.dart";
 // import 'package:url_launcher/url_launcher.dart' show launchUrl;
 
 //! LOG EXTENSION - THIS HELPS TO CALL A .log() ON ANY OBJECT
@@ -39,12 +40,118 @@ extension StringCasingExtension on String {
   String removeSpacesAndLower() => replaceAll(' ', '').toLowerCase();
 }
 
+extension SpacingExtension on double {
+  SizedBox get hSpace {
+    return SizedBox(height: this);
+  }
+
+  SizedBox get wSpace {
+    return SizedBox(width: this);
+  }
+
+  SizedBox hSpaceW(double vertical) {
+    return SizedBox(height: screenHeight, width: vertical.screenWidth);
+  }
+}
+
+extension SpacingNumExtension on num {
+  SizedBox get hSpace {
+    return SizedBox(height: toDouble());
+  }
+
+  SizedBox get wSpace {
+    return SizedBox(width: toDouble());
+  }
+
+  SizedBox hSpaceW(double vertical) {
+    return SizedBox(height: toDouble(), width: vertical.toDouble());
+  }
+}
+
+extension PercentageExtension on double {
+  double asPercentageOf(double divisor) {
+    if (divisor == 0) {
+      throw ArgumentError('Divisor cannot be zero');
+    }
+    return (this * 100) / divisor;
+  }
+}
+
 extension StyledTextExtension on String {
   Text txt({
     double? size,
     Color? color,
     FontWeight? fontWeight,
+    bool? isheader,
     String? fontFamily,
+    FontStyle? fontStyle,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+    TextAlign? textAlign,
+    int? maxLines,
+    double? height,
+  }) {
+    return Text(this,
+        overflow: overflow,
+        textAlign: textAlign,
+        maxLines: maxLines,
+        style: GoogleFonts.manrope(
+          textStyle: TextStyle(
+            height: height,
+            fontSize: size ?? 14,
+            color: switch (isheader) {
+              true => color ?? const Color(0xFF111827),
+              _ => color ?? const Color(0xFF6B7280),
+            },
+            fontWeight: fontWeight,
+            fontFamily: fontFamily,
+            fontStyle: fontStyle,
+            decoration: decoration,
+          ),
+        ));
+  }
+}
+
+extension StyledTextExtension14 on String {
+  Text txt14({
+    Color? color,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    FontStyle? fontStyle,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+    TextAlign? textAlign,
+    bool? isheader,
+    int? maxLines,
+  }) {
+    return Text(
+      this,
+      overflow: overflow,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      style: GoogleFonts.manrope(
+        textStyle: TextStyle(
+          fontSize: 14,
+          color: switch (isheader) {
+            true => color ?? const Color(0xFF111827),
+            _ => color ?? const Color(0xFF6B7280),
+          },
+          fontWeight: fontWeight,
+          fontFamily: fontFamily,
+          fontStyle: fontStyle,
+          decoration: decoration,
+        ),
+      ),
+    );
+  }
+}
+
+extension StyledTextExtension12 on String {
+  Text txt12({
+    Color? color,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    bool? isheader,
     FontStyle? fontStyle,
     TextOverflow? overflow,
     TextDecoration? decoration,
@@ -56,13 +163,86 @@ extension StyledTextExtension on String {
       overflow: overflow,
       textAlign: textAlign,
       maxLines: maxLines,
-      style: TextStyle(
-        fontSize: size ?? 14.sp,
-        color: color,
-        fontWeight: fontWeight,
-        fontFamily: fontFamily,
-        fontStyle: fontStyle,
-        decoration: decoration,
+      style: GoogleFonts.manrope(
+        textStyle: TextStyle(
+          fontSize: 12,
+          color: switch (isheader) {
+            true => color ?? const Color(0xFF111827),
+            _ => color ?? const Color(0xFF6B7280),
+          },
+          fontWeight: fontWeight,
+          fontFamily: fontFamily,
+          fontStyle: fontStyle,
+          decoration: decoration,
+        ),
+      ),
+    );
+  }
+}
+
+extension StyledTextExtension16 on String {
+  Text txt16({
+    Color? color,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    FontStyle? fontStyle,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? isheader,
+  }) {
+    return Text(
+      this,
+      overflow: overflow,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      style: GoogleFonts.manrope(
+        textStyle: TextStyle(
+          fontSize: 16,
+          color: switch (isheader) {
+            true => color ?? const Color(0xFF111827),
+            _ => color ?? const Color(0xFF6B7280),
+          },
+          fontWeight: fontWeight,
+          fontFamily: fontFamily,
+          fontStyle: fontStyle,
+          decoration: decoration,
+        ),
+      ),
+    );
+  }
+}
+
+extension StyledTextExtension24 on String {
+  Text txt24({
+    Color? color,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    FontStyle? fontStyle,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+    TextAlign? textAlign,
+    int? maxLines,
+    bool? isheader,
+  }) {
+    return Text(
+      this,
+      overflow: overflow,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      style: GoogleFonts.manrope(
+        textStyle: TextStyle(
+          fontSize: 24,
+          color: switch (isheader) {
+            true => color ?? const Color(0xFF111827),
+            _ => color ?? const Color(0xFF6B7280),
+          },
+          fontWeight: fontWeight,
+          fontFamily: fontFamily,
+          fontStyle: fontStyle,
+          decoration: decoration,
+        ),
       ),
     );
   }
@@ -97,35 +277,35 @@ extension NumExtensionss on num {
 //   launchUrl(Uri.parse("mailto:$receiver?subject=$title&body=$body"));
 // }
 
-extension WidgetExtensionss on num {
-  Widget get sbH => SizedBox(
-        height: h,
-      );
+// extension WidgetExtensionss on num {
+//   Widget get sbH => SizedBox(
+//         height: h,
+//       );
 
-  Widget get sbW => SizedBox(
-        width: w,
-      );
+//   Widget get sbW => SizedBox(
+//         width: w,
+//       );
 
-  EdgeInsetsGeometry get padV => EdgeInsets.symmetric(vertical: h);
+//   EdgeInsetsGeometry get padV => EdgeInsets.symmetric(vertical: h);
 
-  EdgeInsetsGeometry get padH => EdgeInsets.symmetric(horizontal: w);
-}
+//   EdgeInsetsGeometry get padH => EdgeInsets.symmetric(horizontal: w);
+// }
 
-extension WidgetExtensions on double {
-  Widget get sbH => SizedBox(
-        height: h,
-      );
+// extension WidgetExtensions on double {
+//   Widget get sbH => SizedBox(
+//         height: h,
+//       );
 
-  Widget get sbW => SizedBox(
-        width: w,
-      );
+//   Widget get sbW => SizedBox(
+//         width: w,
+//       );
 
-  EdgeInsetsGeometry get padA => EdgeInsets.all(this);
+//   EdgeInsetsGeometry get padA => EdgeInsets.all(this);
 
-  EdgeInsetsGeometry get padV => EdgeInsets.symmetric(vertical: h);
+//   EdgeInsetsGeometry get padV => EdgeInsets.symmetric(vertical: h);
 
-  EdgeInsetsGeometry get padH => EdgeInsets.symmetric(horizontal: w);
-}
+//   EdgeInsetsGeometry get padH => EdgeInsets.symmetric(horizontal: w);
+// }
 
 extension ImageExtension on String {
   Image mage({
@@ -175,7 +355,7 @@ extension InkWellExtension on Widget {
       onTap: onTap,
       onDoubleTap: onDoubleTap,
       onLongPress: onLongPress,
-      borderRadius: borderRadius ?? BorderRadius.circular(12.r),
+      borderRadius: borderRadius ?? BorderRadius.circular(12),
       splashColor: splashColor,
       highlightColor: highlightColor,
       child: this,

@@ -2,10 +2,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:traq/core/type_defs.dart';
 import 'package:traq/theme/palette.dart';
-import 'package:traq/utils/specific_size_text_exrension.dart';
+import 'package:traq/utils/app_extensions.dart';
 
 void showSnackBar({required BuildContext context, required String text}) {
   ScaffoldMessenger.of(context)
@@ -36,10 +36,10 @@ showBanner({
 }) {
   ScaffoldMessenger.of(context).showMaterialBanner(
     MaterialBanner(
-      elevation: 4.0.sp,
+      elevation: 4,
       padding: EdgeInsets.symmetric(
-        vertical: 20.0.h,
-        horizontal: 25.0.w,
+        vertical: 20.0.sh,
+        horizontal: 25.0.sw,
       ),
       forceActionsBelow: true,
       backgroundColor: theType == NotificationType.failure
@@ -52,7 +52,7 @@ showBanner({
       content: Text(
         theMessage,
         style: TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14.sw,
           fontWeight: FontWeight.w500,
           color: Pallete.whiteColor,
         ),
@@ -71,13 +71,13 @@ showBanner({
               shadowColor: Colors.transparent,
               backgroundColor: Colors.white24,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(21.0.r),
+                borderRadius: BorderRadius.circular(21.0.sw),
               ),
             ),
             child: Text(
               "Dismiss",
               style: TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 12.sw,
                   fontWeight: FontWeight.w500,
                   color: Pallete.whiteColor),
             ),

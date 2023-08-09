@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 
@@ -62,7 +61,7 @@ class _LoadingggState extends State<Loadinggg>
             turns: _animationController,
             child: Icon(
               PhosphorIcons.placeholder,
-              size: widget.height ?? 30.h,
+              size: widget.height ?? 30,
             ),
           ),
         );

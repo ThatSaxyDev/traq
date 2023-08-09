@@ -33,7 +33,7 @@ class Pallete {
   static const blackTint = Color(0xff121212);
   static const lightbrownColor = Color(0xffB48669);
   static const textGreen = Color(0xff4E6139);
-  static const blueColor = Color(0xff034DC6);
+  static const blueColor = Color(0xFF294EAB);
 
   //! ****
 

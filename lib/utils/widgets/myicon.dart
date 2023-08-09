@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:traq/utils/app_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MyIcon extends StatelessWidget {
@@ -26,7 +26,7 @@ class MyIcon extends StatelessWidget {
         icon.iconSvg,
         // ignore: deprecated_member_use
         color: color,
-        height: height ?? 24.h,
+        height: height ?? 24,
       ),
     );
   }
@@ -47,7 +47,7 @@ class BackIcon extends StatelessWidget {
       highlightColor: Colors.transparent,
       child: SvgPicture.asset(
         'back'.iconSvg,
-        height: 24.h,
+        height: 24,
       ),
     );
   }

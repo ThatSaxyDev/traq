@@ -3,7 +3,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:traq/theme/palette.dart';
 
@@ -53,7 +52,7 @@ class _ClickButtonState extends ConsumerState<ClickButton> {
             }
           },
           child: SizedBox(
-            height: widget.height ?? 70.h,
+            height: widget.height ?? 70,
             width: widget.width ?? double.infinity,
             child: Stack(
               children: [
@@ -62,10 +61,10 @@ class _ClickButtonState extends ConsumerState<ClickButton> {
                       ? Alignment.bottomCenter
                       : Alignment.topCenter,
                   child: Container(
-                    height: widget.height == null ? 68.h : (widget.height! - 2),
+                    height: widget.height == null ? 68 : (widget.height! - 2),
                     width: widget.width ?? double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
+                      borderRadius: BorderRadius.circular(12),
                       color: widget.isActive == true
                           ? currentTheme.drawerTheme.backgroundColor
                           : currentTheme.drawerTheme.backgroundColor!
@@ -84,7 +83,7 @@ class _ClickButtonState extends ConsumerState<ClickButton> {
                                   .withOpacity(0),
                           offset: clicked.value == true
                               ? const Offset(0, 0)
-                              : Offset(0, 5.h),
+                              : const Offset(0, 5),
                         ),
                       ],
                     ),
@@ -97,7 +96,7 @@ class _ClickButtonState extends ConsumerState<ClickButton> {
                                     ? currentTheme.textTheme.bodyMedium!.color!
                                     : currentTheme.textTheme.bodyMedium!.color!
                                         .withOpacity(0.3),
-                                fontSize: 14.sp,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
