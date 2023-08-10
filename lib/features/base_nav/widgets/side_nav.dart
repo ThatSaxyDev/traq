@@ -88,6 +88,9 @@ class _SideNavState extends ConsumerState<SideNav> {
               ).tap(onTap: () {
                 remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 0);
+                ref
+                    .read(versionNavControllerProvider.notifier)
+                    .resetVersionPage();
               }),
 
               //! projects
@@ -194,6 +197,11 @@ class _SideNavState extends ConsumerState<SideNav> {
 
                           //! move index of base nav away
                           moveToPage(context: context, ref: ref, index: 1);
+
+                          //! reset version page
+                          ref
+                              .read(versionNavControllerProvider.notifier)
+                              .resetVersionPage();
                         }),
                       ),
                     ),
@@ -237,6 +245,9 @@ class _SideNavState extends ConsumerState<SideNav> {
               ).tap(onTap: () {
                 remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 2);
+                ref
+                    .read(versionNavControllerProvider.notifier)
+                    .resetVersionPage();
               }),
 
               //! settings
@@ -275,6 +286,9 @@ class _SideNavState extends ConsumerState<SideNav> {
               ).tap(onTap: () {
                 remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 3);
+                ref
+                    .read(versionNavControllerProvider.notifier)
+                    .jumpToPage(page: 0);
               }),
               40.hSpace,
             ],

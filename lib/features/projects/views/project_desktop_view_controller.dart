@@ -2,6 +2,7 @@
 //! the state notifier provider for controlling the state of the base nav wrapper
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:traq/utils/app_extensions.dart';
 
 final projectNavControllerProvider =
     StateNotifierProvider<ProjectNavController, ProjectStuff?>((ref) {
@@ -45,4 +46,29 @@ class ProjectStuff {
     required this.view,
     required this.title,
   });
+}
+
+//!!!
+final versionNavControllerProvider =
+    StateNotifierProvider<VersionNavController, PageController>((ref) {
+  return VersionNavController();
+});
+
+//! the state notifier class for controlling the state of the base nav wrapper
+class VersionNavController extends StateNotifier<PageController> {
+  VersionNavController() : super(PageController());
+
+  //! move to page
+  void jumpToPage({required int page}) {
+    state.page!.log();
+    state.jumpToPage(page);
+  }
+
+  void resetVersionPage() {
+    state.jumpToPage(0);
+  }
+
+  // void removePage() {
+  //   state = null;
+  // }
 }

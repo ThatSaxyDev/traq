@@ -1,15 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_extensions.dart';
 import 'package:traq/utils/widgets/myicon.dart';
 
 class ProjectCard extends ConsumerWidget {
   final String projectTitle;
+  final void Function()? goToVersion;
   const ProjectCard({
     super.key,
     required this.projectTitle,
+    this.goToVersion,
   });
 
   @override
@@ -53,7 +56,10 @@ class ProjectCard extends ConsumerWidget {
                 ],
               ),
               const Spacer(),
-              const MyIcon(icon: 'arrowright'),
+              MyIcon(
+                icon: 'arrowright',
+                onTap: goToVersion!.call,
+              ),
             ],
           ),
           const Spacer(),
@@ -68,7 +74,7 @@ class ProjectCard extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: 'Open Bugs'.txt(
+                child: 'Open Bugs - 10'.txt(
                   size: 10,
                   color: const Color(0xFFEF4444),
                 ),
@@ -84,7 +90,7 @@ class ProjectCard extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: 'Resolved Bugs'.txt(
+                child: 'Resolved Bugs - 5'.txt(
                   size: 10,
                   color: const Color(0xFF22C55E),
                 ),
@@ -100,7 +106,7 @@ class ProjectCard extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: 'Closed Bugs'.txt(
+                child: 'Closed Bugs - 0'.txt(
                   size: 10,
                   color: const Color(0xFF6B7280),
                 ),

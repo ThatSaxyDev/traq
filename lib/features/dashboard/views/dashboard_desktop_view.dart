@@ -37,7 +37,7 @@ class _DashBoardDesktopViewState extends ConsumerState<DashBoardDesktopView> {
               'Overview'.toUpperCase().txt14(
                     fontWeight: FontWeight.w500,
                   ),
-              16.hSpace,
+              16.hSpace, 
 
               //! active projects
               SingleChildScrollView(
