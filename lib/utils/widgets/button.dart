@@ -106,11 +106,11 @@ class TransparentButton extends ConsumerWidget {
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             side: BorderSide(
-              width: 1,
-              color: color ?? Pallete.greey,
+              width: 0.5,
+              color: color ?? const Color(0xFFD1D5DB),
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 8.sw),
+              Radius.circular(radius ?? 4),
             ),
           ),
           elevation: 0,
@@ -152,7 +152,6 @@ class GButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return ClickButton(
       onTap: () => signInWithGoogle(context: context, ref: ref),
       child: Row(
