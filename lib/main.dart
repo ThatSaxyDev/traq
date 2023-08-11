@@ -9,6 +9,7 @@ import 'package:traq/firebase_options.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/router.dart';
 import 'package:traq/shared/app_texts.dart';
+import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/error_text.dart';
 import 'package:traq/utils/loader.dart';
 
@@ -48,7 +49,7 @@ class _TraqState extends ConsumerState<Traq> {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 fontFamily: AppTexts.appFont,
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                colorScheme: ColorScheme.fromSeed(seedColor: Pallete.blueColor),
                 useMaterial3: true,
               ),
               routerDelegate: RoutemasterDelegate(
@@ -59,7 +60,7 @@ class _TraqState extends ConsumerState<Traq> {
                       return loggedInRoute;
                     }
                   }
-                  return loggedInRoute;
+                  return loggedOutRoute;
                 },
               ),
               routeInformationParser: const RoutemasterParser(),

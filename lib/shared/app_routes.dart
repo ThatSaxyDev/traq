@@ -1,7 +1,8 @@
 class AppRoutes {
   // base
   static const String base = '/';
+  static const String baseNav = '/base-nav';
 
-  //! settings
-  static const String settings = '/settings';
+  //! create org
+  static const String createOrg = '/create-organisation';
 }

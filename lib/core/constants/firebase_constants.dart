@@ -1,6 +1,6 @@
 class FirebaseConstants {
   static const usersCollection = 'users';
-  static const postsCollection = 'posts';
+  static const organisationsCollection = 'organisations';
   static const repostsCollection = 'reposts';
   static const commentsCollection = 'comments';
   static const quotesCollection = 'quotes';

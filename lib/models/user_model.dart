@@ -6,51 +6,51 @@ import 'package:flutter/foundation.dart';
 class UserModel {
   final String? uid;
   final String? name;
-  final String? username;
+  final String? nickName;
   final String? email;
   final String? profilePic;
-  final String? banner;
-  final String? link;
-  final bool? isVerified;
-  final List<dynamic>? followers;
-  final List<dynamic>? following;
+  final bool? isUserTypePicked;
+  final bool? isTeamLead;
+  final bool? createdAtLeastOneOrg;
+  final List<dynamic>? organisationsCreated;
+  final List<dynamic>? organisationsJoined;
 
   const UserModel({
     this.uid,
     this.name,
-    this.username,
+    this.nickName,
     this.email,
     this.profilePic,
-    this.banner,
-    this.link,
-    this.isVerified,
-    this.followers,
-    this.following,
+    this.isUserTypePicked,
+    this.isTeamLead,
+    this.createdAtLeastOneOrg,
+    this.organisationsCreated,
+    this.organisationsJoined,
   });
 
   UserModel copyWith({
     String? uid,
     String? name,
-    String? username,
+    String? nickName,
     String? email,
     String? profilePic,
-    String? banner,
-    String? link,
-    bool? isVerified,
-    List<dynamic>? followers,
-    List<dynamic>? following,
+    bool? isUserTypePicked,
+    bool? isTeamLead,
+    bool? createdAtLeastOneOrg,
+    List<dynamic>? organisationsCreated,
+    List<dynamic>? organisationsJoined,
   }) {
     return UserModel(
       uid: uid ?? this.uid,
       name: name ?? this.name,
-      username: username ?? this.username,
+      nickName: nickName ?? this.nickName,
       email: email ?? this.email,
       profilePic: profilePic ?? this.profilePic,
-      banner: banner ?? this.banner,
-      link: link ?? this.link,
-      isVerified: isVerified ?? this.isVerified,
-      followers: followers ?? this.followers,
-      following: following ?? this.following,
+      isUserTypePicked: isUserTypePicked ?? this.isUserTypePicked,
+      isTeamLead: isTeamLead ?? this.isTeamLead,
+      createdAtLeastOneOrg: createdAtLeastOneOrg ?? this.createdAtLeastOneOrg,
+      organisationsCreated: organisationsCreated ?? this.organisationsCreated,
+      organisationsJoined: organisationsJoined ?? this.organisationsJoined,
     );
   }
 
@@ -58,14 +58,14 @@ class UserModel {
     return <String, dynamic>{
       'uid': uid,
       'name': name,
-      'username': username,
+      'nickName': nickName,
       'email': email,
-      'link': link,
       'profilePic': profilePic,
-      'banner': banner,
-      'isVerified': isVerified,
-      'followers': followers,
-      'following': following,
+      'isTeamLead': isTeamLead,
+      'createdAtLeastOneOrg': createdAtLeastOneOrg,
+      'isUserTypePicked': isUserTypePicked,
+      'organisationsCreated': organisationsCreated,
+      'organisationsJoined': organisationsJoined,
     };
   }
 
@@ -73,14 +73,14 @@ class UserModel {
     return UserModel(
       uid: map["uid"] ?? '',
       name: map["name"] ?? '',
-      username: map["username"] ?? '',
+      nickName: map["nickName"] ?? '',
       email: map["email"] ?? '',
-      link: map["link"] ?? '',
-      profilePic: map["profilePic"] ?? '',
-      banner: map["banner"] ?? '',
-      isVerified: map["isVerified"] ?? false,
-      followers: map['followers'] ?? [],
-      following: map['following'] ?? [],
+      profilePic: map['profilePic'] ?? '',
+      isTeamLead: map['isTeamLead'] ?? false,
+      createdAtLeastOneOrg: map['createdAtLeastOneOrg'] ?? false,
+      isUserTypePicked: map['isUserTypePicked'] ?? false,
+      organisationsCreated: map['organisationsCreated'] ?? [],
+      organisationsJoined: map['organisationsJoined'] ?? [],
     );
   }
 
@@ -91,7 +91,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, name: $name, username: $username, email: $email, profilePic: $profilePic, banner: $banner, link: $link, isVerified: $isVerified, followers: $followers, following: $following)';
+    return 'UserModel(uid: $uid, name: $name, nickName: $nickName, email: $email, profilePic: $profilePic, isUserTypePicked: $isUserTypePicked, isTeamLead: $isTeamLead, createdAtLeastOneOrg: $createdAtLeastOneOrg, organisationsCreated: $organisationsCreated, organisationsJoined: $organisationsJoined)';
   }
 
   @override
@@ -100,27 +100,27 @@ class UserModel {
 
     return other.uid == uid &&
         other.name == name &&
-        other.username == username &&
+        other.nickName == nickName &&
         other.email == email &&
         other.profilePic == profilePic &&
-        other.banner == banner &&
-        other.link == link &&
-        other.isVerified == isVerified &&
-        listEquals(other.followers, followers) &&
-        listEquals(other.following, following);
+        other.isUserTypePicked == isUserTypePicked &&
+        other.isTeamLead == isTeamLead &&
+        other.createdAtLeastOneOrg == createdAtLeastOneOrg &&
+        listEquals(other.organisationsCreated, organisationsCreated) &&
+        listEquals(other.organisationsJoined, organisationsJoined);
   }
 
   @override
   int get hashCode {
     return uid.hashCode ^
         name.hashCode ^
-        username.hashCode ^
+        nickName.hashCode ^
         email.hashCode ^
         profilePic.hashCode ^
-        banner.hashCode ^
-        link.hashCode ^
-        isVerified.hashCode ^
-        followers.hashCode ^
-        following.hashCode;
+        isUserTypePicked.hashCode ^
+        isTeamLead.hashCode ^
+        createdAtLeastOneOrg.hashCode ^
+        organisationsCreated.hashCode ^
+        organisationsJoined.hashCode;
   }
 }

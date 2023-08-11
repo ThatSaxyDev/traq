@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
-
-// import 'package:stream/features/auth/controller/auth_controller.dart';
 import 'package:traq/shared/app_grafiks.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_extensions.dart';
@@ -18,10 +16,12 @@ class BButton extends StatelessWidget {
   final double? radius;
   final void Function()? onTap;
   final Color? color;
+  final Color? borderColor;
+  final Color? textColor;
   final Widget? item;
   final String? text;
   final bool isText;
-  final Color? textColor;
+  final EdgeInsetsGeometry? padding;
   const BButton({
     Key? key,
     this.height,
@@ -29,38 +29,44 @@ class BButton extends StatelessWidget {
     this.radius,
     required this.onTap,
     this.color,
+    this.borderColor,
+    this.textColor,
     this.item,
     this.text,
     this.isText = true,
-    this.textColor,
+    this.padding,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 40.sh,
+      height: height ?? 52,
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
+            side: BorderSide(
+              width: 1,
+              color: borderColor ?? Colors.transparent,
+            ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 8.sw),
+              Radius.circular(radius ?? 4),
             ),
           ),
-          padding: EdgeInsets.zero,
+          padding: padding ?? EdgeInsets.zero,
           elevation: 0,
           shadowColor: Colors.transparent,
-          backgroundColor: color ?? Pallete.blueColor,
+          backgroundColor: color ?? const Color(0xFF294EAB),
         ),
         child: Center(
           child: isText == true
               ? Text(
                   text ?? '',
                   style: TextStyle(
-                    fontSize: 15.sw,
+                    color: textColor ?? Pallete.whiteColor,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    color: textColor,
                   ),
                 )
               : item,
@@ -70,7 +76,7 @@ class BButton extends StatelessWidget {
   }
 }
 
-class TransparentButton extends ConsumerWidget {
+class TransparentButton extends StatelessWidget {
   final double? height;
   final double? width;
   final double? radius;
@@ -96,21 +102,20 @@ class TransparentButton extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ThemeData currentTheme = ref.watch(themeNotifierProvider);
+  Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 40.sh,
+      height: height ?? 48,
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
             side: BorderSide(
-              width: 0.5,
-              color: color ?? const Color(0xFFD1D5DB),
+              width: 1,
+              color: color ?? Pallete.greey,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 4),
+              Radius.circular(radius ?? 8),
             ),
           ),
           elevation: 0,
@@ -123,8 +128,7 @@ class TransparentButton extends ConsumerWidget {
               ? Text(
                   text ?? '',
                   style: TextStyle(
-                    color:
-                        textColor ?? currentTheme.textTheme.bodyMedium!.color,
+                    color: textColor ?? Pallete.blackColor,
                     fontSize: 14.sw,
                     fontWeight: FontWeight.w500,
                   ),
@@ -152,20 +156,19 @@ class GButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ClickButton(
+    return TransparentButton(
+      height: 60,
+      width: 300,
       onTap: () => signInWithGoogle(context: context, ref: ref),
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.center,
+      isText: false,
+      item: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          60.wSpace,
           const MyIcon(icon: AppGrafiks.google, height: 20),
           15.wSpace,
-          const Text(
-            'Continue With Google',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+          'Continue With Google'.txt16(
+            fontWeight: FontWeight.w600,
+            isheader: true,
           ),
         ],
       ),

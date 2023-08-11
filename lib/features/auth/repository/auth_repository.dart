@@ -63,18 +63,17 @@ class AuthRepository {
 
       if (userCredential.additionalUserInfo!.isNewUser) {
         userModel = UserModel(
-          link: '',
           uid: userCredential.user!.uid,
-          username: userCredential.user!.displayName!
-              .replaceAll(' ', '')
-              .toLowerCase(),
+          // nickName: userCredential.user!.displayName!
+          //     .replaceAll(' ', '')
+          //     .toLowerCase(),
+          nickName: '',
           name: userCredential.user!.displayName ?? '',
           profilePic: userCredential.user!.photoURL ?? Constants.avatarDefault,
-          banner: '',
-          isVerified: false,
+          isTeamLead: false,
           email: userCredential.user!.email!,
-          followers: [],
-          following: [],
+          organisationsCreated: [],
+          organisationsJoined: [],
         );
         await _users.doc(userCredential.user!.uid).set(userModel.toMap());
       } else {

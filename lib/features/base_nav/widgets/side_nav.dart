@@ -1,20 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter/material.dart';
 import 'package:simple_notifier/simple_notifier.dart';
+
 import 'package:traq/features/base_nav/views/base_nav_view.dart';
 import 'package:traq/features/base_nav/widgets/base_nav_view.desktopcontroller.dart';
 import 'package:traq/features/dashboard/views/dashboard_desktop_view.dart';
+import 'package:traq/features/organisations/controllers/organisation_controller.dart';
 import 'package:traq/features/projects/views/project_dektop_view.dart';
 import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
 import 'package:traq/features/reports/views/reports_desktop_view.dart';
+import 'package:traq/models/organisation_model.dart';
+import 'package:traq/shared/app_routes.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_constants.dart';
 import 'package:traq/utils/app_extensions.dart';
+import 'package:traq/utils/nav.dart';
+import 'package:traq/utils/utils.dart';
+import 'package:traq/utils/widgets/button.dart';
 import 'package:traq/utils/widgets/myicon.dart';
 
 class SideNav extends ConsumerStatefulWidget {
-  const SideNav({super.key});
+  const SideNav({
+    super.key,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SideNavState();
@@ -22,13 +32,19 @@ class SideNav extends ConsumerStatefulWidget {
 
 class _SideNavState extends ConsumerState<SideNav> {
   ValueNotifier<bool> openProjects = false.notifier;
+  ValueNotifier<bool> openOrganisations = false.notifier;
 
   @override
   Widget build(BuildContext context) {
+    OrganisationModel? orgFromProvider =
+        ref.watch(orgModelStateControllerProvider);
     int indexFromDesktopController =
         ref.watch(baseNavDesktopControllerProvider);
     ProjectStuff? projectPageFromController =
         ref.watch(projectNavControllerProvider);
+
+    AsyncValue<List<OrganisationModel>> asyncListofCreatedOrganisations =
+        ref.watch(getUserCreatedOrgsProvider);
 
     return Expanded(
       flex: 1,
@@ -46,11 +62,141 @@ class _SideNavState extends ConsumerState<SideNav> {
           child: Column(
             children: [
               16.hSpace,
-              'Traq'.txt(
-                size: 32,
-                fontWeight: FontWeight.w700,
-                color: Pallete.blueColor,
+              asyncListofCreatedOrganisations.when(
+                data: (data) {
+                  return Column(
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            (switch (orgFromProvider == null) {
+                              true => '',
+                              false => orgFromProvider!.name
+                            })
+                                .txt(
+                              size: 32,
+                              fontWeight: FontWeight.w700,
+                              color: Pallete.blueColor,
+                            ),
+                            10.wSpace,
+                            TransparentButton(
+                              height: 40,
+                              width: 40,
+                              onTap: () {
+                                openOrganisations.value =
+                                    !openOrganisations.value;
+                              },
+                              isText: false,
+                              item:
+                                  const Icon(Icons.keyboard_arrow_down_rounded),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //! list of orgs
+                      openOrganisations.listen(
+                        builder: (context, value, child) => AnimatedContainer(
+                          duration: 200.ms,
+                          height: switch (value) {
+                            true => ((50 * data.length) + 65).toDouble(),
+                            _ => 0,
+                          },
+                          width: double.maxFinite,
+                          child: SingleChildScrollView(
+                            child: Column(children: [
+                              15.hSpace,
+                              ...List.generate(
+                                data.length,
+                                (index) => Container(
+                                  height: 36,
+                                  child: Row(
+                                    children: [
+                                      36.wSpace,
+                                      const MyIcon(
+                                        height: 20,
+                                        icon: 'dashboard',
+                                        color: Pallete.blueColor,
+                                      ),
+                                      12.wSpace,
+                                      data[index].name.txt14(
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                      12.wSpace,
+                                      isLessThanThreeDaysAgo(
+                                              data[index].createdAt!)
+                                          ? Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 3,
+                                                      horizontal: 7),
+                                              decoration: BoxDecoration(
+                                                color: Pallete.blueColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: 'new'.txt(
+                                                  size: 10,
+                                                  color: Colors.white),
+                                            )
+                                          : const SizedBox.shrink(),
+                                    ],
+                                  ),
+                                ).tap(onTap: () {
+                                  openOrganisations.value = false;
+                                  ref
+                                      .read(orgModelStateControllerProvider
+                                          .notifier)
+                                      .fixAnOrgInState(
+                                          organisation: data[index]);
+                                }),
+                              ),
+                              15.hSpace,
+
+                              //! create org
+                              TransparentButton(
+                                height: 40,
+                                width: 100,
+                                onTap: () {
+                                  goTo(
+                                      context: context,
+                                      route: AppRoutes.createOrg);
+                                },
+                                isText: false,
+                                item: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    'Create'.txt14(
+                                      fontWeight: FontWeight.w500,
+                                      color: Pallete.blueColor,
+                                    ),
+                                    8.wSpace,
+                                    const MyIcon(
+                                      icon: 'plus',
+                                      height: 16,
+                                      color: Pallete.blueColor,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                error: (error, stackTrace) {
+                  error.toString().log();
+                  return const SizedBox.shrink();
+                },
+                loading: () {
+                  return const SizedBox.shrink();
+                },
               ),
+
               60.hSpace,
               //! dashboard
               Container(
@@ -86,6 +232,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                openOrganisations.value = false;
                 remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 0);
                 ref
@@ -124,6 +271,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                openOrganisations.value = false;
                 openProjects.value = !openProjects.value;
               }),
 
@@ -185,6 +333,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                             ],
                           ),
                         ).tap(onTap: () {
+                          openOrganisations.value = false;
                           moveToProjectPage(
                               context: context,
                               ref: ref,
@@ -243,6 +392,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                openOrganisations.value = false;
                 remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 2);
                 ref
@@ -284,6 +434,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                   ),
                 ),
               ).tap(onTap: () {
+                openOrganisations.value = false;
                 remooveProjectPage(context: context, ref: ref);
                 moveToPage(context: context, ref: ref, index: 3);
                 ref

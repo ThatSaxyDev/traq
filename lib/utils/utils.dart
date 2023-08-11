@@ -39,3 +39,9 @@ String generateRandomSix() {
 
 //! DEACTIVATING THE BACK BUTTON/SWIPE
 Future<bool> onWillPop() async => false;
+
+bool isLessThanThreeDaysAgo(DateTime dateTime) {
+  DateTime now = DateTime.now();
+  DateTime threeDaysAgo = now.subtract(const Duration(minutes: 10));
+  return dateTime.isAfter(threeDaysAgo);
+}

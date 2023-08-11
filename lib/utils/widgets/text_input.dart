@@ -1,157 +1,159 @@
-// // ignore_for_file: public_member_api_docs, sort_constructors_first
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:traq/shared/app_texts.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-// import 'package:traq/theme/palette.dart';
+import 'package:traq/shared/app_texts.dart';
+import 'package:traq/theme/palette.dart';
 
-// class TextInputWidget extends StatelessWidget {
-//   final double? height;
-//   final double? width;
-//   final String hintText;
-//   final String inputTitle;
-//   final TextEditingController controller;
-//   final bool obscuretext;
-//   final FormFieldValidator<String>? validator;
-//   final Widget? suffixIcon;
-//   final void Function(String)? onFieldSubmitted;
-//   final Widget? suffix;
-//   final FocusNode? focusNode;
-//   final TextInputType? keyboardType;
-//   final void Function(String)? onChanged;
-//   final List<TextInputFormatter>? inputFormatters;
-//   final Color? titleColor;
-//   final Color? borderColor;
-//   final FontWeight? titleFontWeight;
-//   final void Function()? onTap;
-//   final void Function(PointerDownEvent)? onTapOutside;
-//   final Widget? iconn;
-//   final int? maxLength;
-//   final void Function()? onEditingComplete;
-//   final TextCapitalization? textCapitalization;
-//   final bool? readOnly;
-//   const TextInputWidget({
-//     Key? key,
-//     this.height,
-//     this.width,
-//     required this.hintText,
-//     required this.inputTitle,
-//     required this.controller,
-//     this.obscuretext = false,
-//     this.validator,
-//     this.suffixIcon,
-//     this.onFieldSubmitted,
-//     this.suffix,
-//     this.focusNode,
-//     this.keyboardType,
-//     this.onChanged,
-//     this.inputFormatters,
-//     this.titleColor,
-//     this.borderColor,
-//     this.titleFontWeight,
-//     this.onTap,
-//     this.onTapOutside,
-//     this.iconn,
-//     this.maxLength,
-//     this.onEditingComplete,
-//     this.textCapitalization,
-//     this.readOnly,
-//   }) : super(key: key);
+class TextInputWidget extends StatelessWidget {
+  final double? height;
+  final double? width;
+  final String hintText;
+  final String inputTitle;
+  final TextEditingController controller;
+  final bool obscuretext;
+  final FormFieldValidator<String>? validator;
+  final Widget? suffixIcon;
+  final void Function(String)? onFieldSubmitted;
+  final Widget? suffix;
+  final FocusNode? focusNode;
+  final TextInputType? keyboardType;
+  final void Function(String)? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
+  final Color? titleColor;
+  final Color? borderColor;
+  final FontWeight? titleFontWeight;
+  final void Function()? onTap;
+  final void Function(PointerDownEvent)? onTapOutside;
+  final Widget? iconn;
+  final int? maxLength;
+  final void Function()? onEditingComplete;
+  final TextCapitalization? textCapitalization;
+  final bool? readOnly;
+  final bool? autofocus;
+  const TextInputWidget({
+    Key? key,
+    this.height,
+    this.width,
+    required this.hintText,
+    required this.inputTitle,
+    required this.controller,
+    this.obscuretext = false,
+    this.validator,
+    this.suffixIcon,
+    this.onFieldSubmitted,
+    this.suffix,
+    this.focusNode,
+    this.keyboardType,
+    this.onChanged,
+    this.inputFormatters,
+    this.titleColor,
+    this.borderColor,
+    this.titleFontWeight,
+    this.onTap,
+    this.onTapOutside,
+    this.iconn,
+    this.maxLength,
+    this.onEditingComplete,
+    this.textCapitalization,
+    this.readOnly,
+    this.autofocus,
+  }) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       splashColor: Colors.transparent,
-//       highlightColor: Colors.transparent,
-//       onTap: onTap,
-//       child: SizedBox(
-//         // color: Colors.red,
-//         height: 66.h,
-//         width: width ?? double.infinity,
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             Text(
-//               inputTitle,
-//               style: TextStyle(
-//                   color: titleColor ?? Pallete.textGrey,
-//                   fontSize: 14.sp,
-//                   fontWeight: titleFontWeight ?? FontWeight.w500),
-//             ),
-//             iconn ?? const SizedBox.shrink(),
-//             SizedBox(
-//               height: 40.h,
-//               child: TextFormField(
-//                 readOnly: readOnly ?? false,
-//                 textCapitalization:
-//                     textCapitalization ?? TextCapitalization.none,
-//                 onEditingComplete: onEditingComplete,
-//                 maxLength: maxLength,
-//                 onTap: onTap,
-//                 onTapOutside: onTapOutside,
-//                 keyboardType: keyboardType,
-//                 focusNode: focusNode,
-//                 onFieldSubmitted: onFieldSubmitted,
-//                 onChanged: onChanged,
-//                 style: TextStyle(
-//                   fontSize: 15.sp,
-//                   fontFamily: AppTexts.appFont,
-//                 ),
-//                 controller: controller,
-//                 inputFormatters: inputFormatters,
-//                 obscureText: obscuretext,
-//                 obscuringCharacter: '*',
-//                 cursorColor: Colors.black,
-//                 decoration: InputDecoration(
-//                   isDense: true,
-//                   suffix: suffix,
-//                   contentPadding:
-//                       EdgeInsets.symmetric(vertical: 10.w).copyWith(left: 12.w),
-//                   helperText: " ",
-//                   helperStyle: const TextStyle(fontSize: 0.0005),
-//                   errorStyle: const TextStyle(fontSize: 0.0005),
-//                   suffixIcon: suffixIcon,
-//                   suffixIconConstraints:
-//                       BoxConstraints(minHeight: 20.h, minWidth: 20.w),
-//                   hintText: hintText,
-//                   hintStyle: TextStyle(
-//                     fontSize: 16.sp,
-//                     fontWeight: FontWeight.w400,
-//                     color: Pallete.textLighterGrey,
-//                     fontFamily: AppTexts.appFont,
-//                   ),
-//                   border: OutlineInputBorder(
-//                     borderSide: const BorderSide(color: Pallete.borderGrey),
-//                     borderRadius: BorderRadius.circular(8.r),
-//                   ),
-//                   enabledBorder: OutlineInputBorder(
-//                     borderSide: const BorderSide(color: Pallete.borderGrey),
-//                     borderRadius: BorderRadius.circular(8.r),
-//                   ),
-//                   focusedBorder: OutlineInputBorder(
-//                     borderSide: const BorderSide(color: Pallete.orange),
-//                     borderRadius: BorderRadius.circular(8.r),
-//                   ),
-//                   errorBorder: OutlineInputBorder(
-//                     borderSide: const BorderSide(color: Colors.red),
-//                     borderRadius: BorderRadius.circular(8.r),
-//                   ),
-//                   focusedErrorBorder: OutlineInputBorder(
-//                     borderSide: const BorderSide(color: Pallete.orange),
-//                     borderRadius: BorderRadius.circular(8.r),
-//                   ),
-//                 ),
-//                 validator: validator,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: onTap,
+      child: SizedBox(
+        // color: Colors.red,
+        height: 120,
+        width: width ?? double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              inputTitle,
+              style: TextStyle(
+                  color: titleColor ?? Pallete.textGrey,
+                  fontSize: 14,
+                  fontWeight: titleFontWeight ?? FontWeight.w500),
+            ),
+            iconn ?? const SizedBox.shrink(),
+            SizedBox(
+              height: 90,
+              child: TextFormField(
+                autofocus: autofocus ?? false,
+                readOnly: readOnly ?? false,
+                textCapitalization:
+                    textCapitalization ?? TextCapitalization.none,
+                onEditingComplete: onEditingComplete,
+                maxLength: maxLength,
+                onTap: onTap,
+                onTapOutside: onTapOutside,
+                keyboardType: keyboardType,
+                focusNode: focusNode,
+                onFieldSubmitted: onFieldSubmitted,
+                onChanged: onChanged,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontFamily: AppTexts.appFont,
+                ),
+                controller: controller,
+                inputFormatters: inputFormatters,
+                obscureText: obscuretext,
+                obscuringCharacter: '*',
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  // isDense: true,
+                  suffix: suffix,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10)
+                      .copyWith(left: 12),
+                  helperText: " ",
+                  helperStyle: const TextStyle(fontSize: 0.0005),
+                  errorStyle: const TextStyle(fontSize: 0.0005),
+                  suffixIcon: suffixIcon,
+                  suffixIconConstraints:
+                      const BoxConstraints(minHeight: 20, minWidth: 20),
+                  hintText: hintText,
+                  hintStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Pallete.textLighterGrey,
+                    fontFamily: AppTexts.appFont,
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Pallete.borderGrey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Pallete.borderGrey),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Pallete.blueColor),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.red),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Pallete.blueColor),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                validator: validator,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 // class TextInputWidget2 extends StatelessWidget {
 //   final double? height;
