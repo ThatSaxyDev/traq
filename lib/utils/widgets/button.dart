@@ -104,7 +104,7 @@ class TransparentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 48,
+      height: height ?? 52,
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
@@ -125,13 +125,9 @@ class TransparentButton extends StatelessWidget {
         ),
         child: Center(
           child: isText == true
-              ? Text(
-                  text ?? '',
-                  style: TextStyle(
-                    color: textColor ?? Pallete.blackColor,
-                    fontSize: 14.sw,
-                    fontWeight: FontWeight.w500,
-                  ),
+              ? (text ?? '').txt14(
+                  isheader: true,
+                  fontWeight: FontWeight.w500,
                 )
               : item,
         ),
@@ -167,7 +163,7 @@ class GButton extends ConsumerWidget {
           const MyIcon(icon: AppGrafiks.google, height: 20),
           15.wSpace,
           'Continue With Google'.txt16(
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             isheader: true,
           ),
         ],

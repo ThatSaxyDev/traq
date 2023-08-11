@@ -61,6 +61,7 @@ dependencies:
   responsive_builder: ^0.7.0
   google_fonts: ^4.0.4
   simple_notifier: ^1.0.2
+  animate_to: ^0.1.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:traq/shared/app_texts.dart';
 import 'package:traq/theme/palette.dart';
@@ -67,8 +68,7 @@ class TextInputWidget extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: onTap,
       child: SizedBox(
-        // color: Colors.red,
-        height: 120,
+        height: 68,
         width: width ?? double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,14 +76,18 @@ class TextInputWidget extends StatelessWidget {
           children: [
             Text(
               inputTitle,
-              style: TextStyle(
-                  color: titleColor ?? Pallete.textGrey,
+              style: GoogleFonts.manrope(
+                textStyle: TextStyle(
+                  color: titleColor ?? const Color(0xFF6B7280),
                   fontSize: 14,
-                  fontWeight: titleFontWeight ?? FontWeight.w500),
+                  fontWeight: titleFontWeight,
+                  height: 1.43,
+                ),
+              ),
             ),
             iconn ?? const SizedBox.shrink(),
             SizedBox(
-              height: 90,
+              height: 44,
               child: TextFormField(
                 autofocus: autofocus ?? false,
                 readOnly: readOnly ?? false,
@@ -97,9 +101,13 @@ class TextInputWidget extends StatelessWidget {
                 focusNode: focusNode,
                 onFieldSubmitted: onFieldSubmitted,
                 onChanged: onChanged,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontFamily: AppTexts.appFont,
+                style: GoogleFonts.manrope(
+                  textStyle: const TextStyle(
+                    color: Color(0xFF111827),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    height: 1.43,
+                  ),
                 ),
                 controller: controller,
                 inputFormatters: inputFormatters,
@@ -107,6 +115,8 @@ class TextInputWidget extends StatelessWidget {
                 obscuringCharacter: '*',
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
+                  fillColor: const Color(0xFFF2F4F7),
+                  filled: true,
                   // isDense: true,
                   suffix: suffix,
                   contentPadding: const EdgeInsets.symmetric(vertical: 10)
@@ -118,31 +128,33 @@ class TextInputWidget extends StatelessWidget {
                   suffixIconConstraints:
                       const BoxConstraints(minHeight: 20, minWidth: 20),
                   hintText: hintText,
-                  hintStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Pallete.textLighterGrey,
-                    fontFamily: AppTexts.appFont,
+                  hintStyle: GoogleFonts.manrope(
+                    textStyle: const TextStyle(
+                      color: Color(0xFF9CA3AF),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      height: 1.43,
+                    ),
                   ),
                   border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Pallete.borderGrey),
-                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Pallete.borderGrey),
-                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Pallete.blueColor),
-                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.red),
-                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Pallete.blueColor),
-                    borderRadius: BorderRadius.circular(8),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                 ),
                 validator: validator,

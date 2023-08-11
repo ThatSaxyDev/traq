@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:traq/features/auth/repository/auth_repository.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/utils/failure.dart';
@@ -66,7 +67,8 @@ class AuthController extends StateNotifier<bool> {
 
   //! log out
   void logOut() async {
-    _ref.read(userProvider.notifier).update((state) => null);
-    _authRepository.logOut();
+    // _ref.read(userProvider.notifier).update((state) => null);
+    // Future.delayed(200.ms);
+    // _authRepository.logOut();
   }
 }

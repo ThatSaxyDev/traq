@@ -72,3 +72,98 @@ class VersionNavController extends StateNotifier<PageController> {
   //   state = null;
   // }
 }
+
+//! the provider for choosing the project color
+final projectColorControllerProvider =
+    StateNotifierProvider<ProjectColorController, ProjectColor?>((ref) {
+  return ProjectColorController();
+});
+
+//! the state notitfier class for choosing the car color
+class ProjectColorController extends StateNotifier<ProjectColor?> {
+  ProjectColorController() : super(null);
+
+  //! SELECT CAR COLOR
+  void selectProjectColor({required ProjectColor projectColor}) {
+    state = projectColor;
+  }
+
+  //! remove color
+  void removeProjectColor() {
+    state = null;
+  }
+}
+
+//! () => select car color
+void selectProjectColor({
+  required BuildContext context,
+  required ProjectColor projectColor,
+  required WidgetRef ref,
+}) {
+  ref
+      .read(projectColorControllerProvider.notifier)
+      .selectProjectColor(projectColor: projectColor);
+}
+
+//! () => remove color
+void removeProjectColor({
+  required BuildContext context,
+  required WidgetRef ref,
+}) {
+  ref.read(projectColorControllerProvider.notifier).removeProjectColor();
+}
+
+//! car color enum
+enum ProjectColor {
+  red('red', Color(0xFFEF4444)),
+  orange('orange', Color(0xFFEFAA44)),
+  green('green', Color(0xFF22C55E)),
+  lightGreen('lightGreen', Color(0xFF22C580)),
+  teal('teal', Color(0xFF22A7C5)),
+  lightBlue('lightBlue', Color(0xFF2280C5)),
+  blue('lightBlue', Color(0xFF294EAB)),
+  purple('purple', Color(0xFFAE22C5)),
+  violet('violet', Color(0xFFC522A1));
+
+  const ProjectColor(
+    this.colorName,
+    this.colorMaterial,
+  );
+  final String colorName;
+  final Color colorMaterial;
+}
+
+List<ProjectColor> projectColors = [
+  ProjectColor.red,
+  ProjectColor.orange,
+  ProjectColor.green,
+  ProjectColor.lightGreen,
+  ProjectColor.teal,
+  ProjectColor.lightBlue,
+  ProjectColor.blue,
+  ProjectColor.purple,
+  ProjectColor.violet,
+];
+
+final toggleOverlayControllerProvider =
+    StateNotifierProvider<ToggleOverlayController, bool>((ref) {
+  return ToggleOverlayController();
+});
+
+//! the state notitfier class for toggling the overlay
+class ToggleOverlayController extends StateNotifier<bool> {
+  ToggleOverlayController() : super(false);
+
+  //! toggleOverlay
+  void toggleOverlay() {
+    state = !state;
+  }
+}
+
+//! () => toggleOverlay
+void toggleOverlay({
+  required BuildContext context,
+  required WidgetRef ref,
+}) {
+  ref.read(toggleOverlayControllerProvider.notifier).toggleOverlay();
+}
