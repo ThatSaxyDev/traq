@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:traq/features/auth/repository/auth_repository.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/utils/failure.dart';

@@ -5,9 +5,7 @@ import 'package:traq/core/constants/firebase_constants.dart';
 import 'package:traq/core/providers/firebase_provider.dart';
 import 'package:traq/core/type_defs.dart';
 import 'package:traq/models/organisation_model.dart';
-import 'package:traq/models/user_model.dart';
 import 'package:traq/utils/failure.dart';
-import 'package:traq/core/providers/firebase_provider.dart';
 
 part '../repositories/organisation_repository.providers.dart';
 
@@ -65,5 +63,11 @@ class OrganisationRepository {
       orgs.add(OrganisationModel.fromMap(doc.data() as Map<String, dynamic>));
     }
     return orgs;
+  }
+
+  //! get a organisation by name
+  Stream<OrganisationModel> getOrgByName({required String orgName}) {
+    return _organisations.doc(orgName).snapshots().map((event) =>
+        OrganisationModel.fromMap(event.data() as Map<String, dynamic>));
   }
 }

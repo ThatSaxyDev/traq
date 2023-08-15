@@ -4,7 +4,6 @@ import 'package:routemaster/routemaster.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
 import 'package:traq/features/auth/views/login_view.dart';
 import 'package:traq/features/base_nav/views/base_nav_view.dart';
-import 'package:traq/features/organisations/controllers/organisation_controller.dart';
 import 'package:traq/features/organisations/views/create_organisation_view.dart';
 import 'package:traq/features/profile/views/choose_user_type.dart';
 import 'package:traq/features/profile/views/nickname_input_view.dart';

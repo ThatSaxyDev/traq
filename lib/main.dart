@@ -43,66 +43,68 @@ class _TraqState extends ConsumerState<Traq> {
   @override
   Widget build(BuildContext context) {
     return ref.watch(authStateChangeProvider).when(
-          data: (User? userData) => ResponsiveApp(builder: (context) {
-            return MaterialApp.router(
-              title: AppTexts.appName,
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                fontFamily: AppTexts.appFont,
-                colorScheme: ColorScheme.fromSeed(seedColor: Pallete.blueColor),
-                useMaterial3: true,
-              ),
-              routerDelegate: RoutemasterDelegate(
-                routesBuilder: (context) {
-                  if (userData != null) {
-                    getData(ref: ref, data: userData);
-                    if (userModel != null) {
-                      return loggedInRoute;
+        data: (User? userData) => ResponsiveApp(builder: (context) {
+              return MaterialApp.router(
+                title: AppTexts.appName,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  fontFamily: AppTexts.appFont,
+                  colorScheme:
+                      ColorScheme.fromSeed(seedColor: Pallete.blueColor),
+                  useMaterial3: true,
+                ),
+                routerDelegate: RoutemasterDelegate(
+                  routesBuilder: (context) {
+                    if (userData != null) {
+                      getData(ref: ref, data: userData);
+                      if (userModel != null) {
+                        return loggedInRoute;
+                      }
                     }
-                  }
-                  return loggedOutRoute;
-                },
-              ),
-              routeInformationParser: const RoutemasterParser(),
-            );
-          }),
-          // ScreenUtilInit(
-          //   designSize: const Size(375, 812),
-          //   minTextAdapt: true,
-          //   splitScreenMode: false,
-          //   builder: (context, child) {
-          //     return Builder(
-          //       builder: (context) {
-          //         return MaterialApp.router(
-          //           title: AppTexts.appName,
-          //           debugShowCheckedModeBanner: false,
-          //           theme: Pallete.darkModeAppTheme,
-          //           routerDelegate: RoutemasterDelegate(
-          //             routesBuilder: (context) {
-          //               if (userData != null) {
-          //                 getData(ref: ref, data: userData);
-          //                 if (userModel != null) {
-          //                   return loggedInRoute;
-          //                 }
-          //               }
-          //               return loggedOutRoute;
-          //             },
-          //           ),
-          //           routeInformationParser: const RoutemasterParser(),
-          //         );
-          //       },
-          //     );
-          //   },
-          // ),
-          error: (error, stactrace) => MaterialApp(
-              home: Scaffold(body: ErrorText(error: error.toString()))),
-          loading: () => const MaterialApp(
+                    return loggedOutRoute;
+                  },
+                ),
+                routeInformationParser: const RoutemasterParser(),
+              );
+            }),
+        // ScreenUtilInit(
+        //   designSize: const Size(375, 812),
+        //   minTextAdapt: true,
+        //   splitScreenMode: false,
+        //   builder: (context, child) {
+        //     return Builder(
+        //       builder: (context) {
+        //         return MaterialApp.router(
+        //           title: AppTexts.appName,
+        //           debugShowCheckedModeBanner: false,
+        //           theme: Pallete.darkModeAppTheme,
+        //           routerDelegate: RoutemasterDelegate(
+        //             routesBuilder: (context) {
+        //               if (userData != null) {
+        //                 getData(ref: ref, data: userData);
+        //                 if (userModel != null) {
+        //                   return loggedInRoute;
+        //                 }
+        //               }
+        //               return loggedOutRoute;
+        //             },
+        //           ),
+        //           routeInformationParser: const RoutemasterParser(),
+        //         );
+        //       },
+        //     );
+        //   },
+        // ),
+        error: (error, stactrace) => MaterialApp(
+            home: Scaffold(body: ErrorText(error: error.toString()))),
+        loading: () {
+          return const MaterialApp(
             home: Scaffold(
               body: Loadinggg(
                 height: 30,
               ),
             ),
-          ),
-        );
+          );
+        });
   }
 }

@@ -3,13 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:routemaster/routemaster.dart';
 import 'package:traq/core/providers/storage_repository_provider.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
 import 'package:traq/features/profile/repositories/profile_repository.dart';
 import 'package:traq/models/user_model.dart';
-import 'package:traq/core/providers/storage_repository_provider.dart';
-import 'package:traq/features/profile/repositories/profile_repository.dart';
 import 'package:traq/utils/snack_bar.dart';
 
 part '../controllers/profile_controller.providers.dart';

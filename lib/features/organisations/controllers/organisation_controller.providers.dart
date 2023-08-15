@@ -36,4 +36,12 @@ final orgModelStateControllerProvider =
   );
 });
 
+//! provider to get an org by name
+final getOrgByNameProvider = StreamProvider.family((ref, String orgName) {
+  final organisationController =
+      ref.watch(organisationControllerProvider.notifier);
+
+  return organisationController.getOrgByName(orgName: orgName);
+});
+
 final orgModelStateProvider = StateProvider<OrganisationModel?>((ref) => null);

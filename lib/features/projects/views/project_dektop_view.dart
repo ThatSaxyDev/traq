@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
 import 'package:traq/features/projects/widgets/project_card.dart';
+import 'package:traq/models/project_model.dart';
 import 'package:traq/theme/palette.dart';
 
 import 'package:traq/utils/app_extensions.dart';
@@ -12,10 +13,10 @@ import 'package:traq/utils/widgets/myicon.dart';
 import '../../../utils/widgets/bug_card.dart';
 
 class ProjectDesktopView extends ConsumerStatefulWidget {
-  final String projectTitle;
+  final ProjectModel project;
   const ProjectDesktopView({
     super.key,
-    required this.projectTitle,
+    required this.project,
   });
 
   @override
@@ -60,7 +61,7 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                         CircleAvatar(
                           radius: 24,
                           backgroundColor: const Color(0xFF6F4DCD),
-                          child: widget.projectTitle
+                          child: widget.project.name
                               .substring(0, 1)
                               .txt24(color: Pallete.whiteColor),
                         ),
@@ -68,7 +69,7 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            widget.projectTitle.toTitleCase().txt(
+                            widget.project.name.toTitleCase().txt(
                                   isheader: true,
                                   size: 32,
                                   fontWeight: FontWeight.w600,
@@ -139,7 +140,7 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                     children: List.generate(
                       20,
                       (index) => ProjectCard(
-                        projectTitle: widget.projectTitle,
+                        projectTitle: widget.project.name,
                         goToVersion: () {
                           ref
                               .read(versionNavControllerProvider.notifier)
@@ -189,7 +190,7 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            '${widget.projectTitle} v1.0'.toTitleCase().txt(
+                            '${widget.project.name} v1.0'.toTitleCase().txt(
                                   isheader: true,
                                   size: 32,
                                   fontWeight: FontWeight.w600,

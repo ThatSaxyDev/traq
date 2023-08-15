@@ -2,6 +2,7 @@
 //! the state notifier provider for controlling the state of the base nav wrapper
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:traq/models/project_model.dart';
 import 'package:traq/utils/app_extensions.dart';
 
 final projectNavControllerProvider =
@@ -41,7 +42,7 @@ void remooveProjectPage({
 
 class ProjectStuff {
   final Widget view;
-  final String title;
+  final ProjectModel title;
   const ProjectStuff({
     required this.view,
     required this.title,

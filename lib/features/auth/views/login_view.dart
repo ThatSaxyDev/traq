@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
 import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/theme/palette.dart';
-import 'package:traq/utils/app_constants.dart';
 import 'package:traq/utils/app_extensions.dart';
 import 'package:traq/utils/loader.dart';
 import 'package:traq/utils/widgets/button.dart';

@@ -4,7 +4,6 @@ import 'package:traq/core/providers/storage_repository_provider.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
 import 'package:traq/features/organisations/repositories/organisation_repository.dart';
 import 'package:traq/models/organisation_model.dart';
-import 'package:traq/models/user_model.dart';
 import 'package:traq/utils/app_extensions.dart';
 import 'package:traq/utils/snack_bar.dart';
 
@@ -47,6 +46,13 @@ class OrganisationController extends StateNotifier<bool> {
       (failure) => showSnackBar(context: context, text: failure.message),
       (success) {
         org.name.log();
+        Future(
+          () {
+            _ref
+                .read(orgModelStateControllerProvider.notifier)
+                .fixAnOrgInState(organisation: org);
+          },
+        );
       },
     );
   }
@@ -61,6 +67,11 @@ class OrganisationController extends StateNotifier<bool> {
   Future<List<OrganisationModel>> getUserCreatedOrganisationsF() {
     String uid = _ref.read(userProvider)!.uid!;
     return _organisationRepository.getUserCreatedOrganisationsF(uid: uid);
+  }
+
+  //! get org by name
+  Stream<OrganisationModel> getOrgByName({required String orgName}) {
+    return _organisationRepository.getOrgByName(orgName: orgName);
   }
 }
 

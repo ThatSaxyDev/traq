@@ -6,7 +6,6 @@ import 'package:traq/core/providers/firebase_provider.dart';
 import 'package:traq/core/type_defs.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/utils/failure.dart';
-import 'package:traq/core/providers/firebase_provider.dart';
 
 part '../repositories/profile_repository.providers.dart';
 

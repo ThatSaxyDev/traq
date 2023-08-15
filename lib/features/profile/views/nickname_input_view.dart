@@ -10,7 +10,6 @@ import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_extensions.dart';
 import 'package:traq/utils/loader.dart';
-import 'package:traq/utils/nav.dart';
 import 'package:traq/utils/snack_bar.dart';
 import 'package:traq/utils/widgets/button.dart';
 import 'package:traq/utils/widgets/text_input.dart';
@@ -98,7 +97,7 @@ class _NickNameInputViewState extends ConsumerState<NickNameInputView> {
                               TextSpan(
                                 text: 'Welcome, ',
                                 style: GoogleFonts.manrope(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                     fontSize: 20,
                                   ),
                                 ),
@@ -106,7 +105,7 @@ class _NickNameInputViewState extends ConsumerState<NickNameInputView> {
                               TextSpan(
                                 text: user.name,
                                 style: GoogleFonts.manrope(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
                                   ),

@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/num_duration_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
 import 'package:traq/features/organisations/controllers/organisation_controller.dart';
 import 'package:traq/features/profile/controllers/profile_controller.dart';
-import 'package:traq/models/organisation_model.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/theme/palette.dart';
