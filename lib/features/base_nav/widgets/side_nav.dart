@@ -353,7 +353,7 @@ class _SideNavState extends ConsumerState<SideNav> {
                                         ref: ref,
                                         view: ProjectStuff(
                                           view: ProjectDesktopView(
-                                            project: projects[index],
+                                            projectModel: projects[index],
                                           ),
                                           title: projects[index],
                                         ));

@@ -168,3 +168,28 @@ void toggleOverlay({
 }) {
   ref.read(toggleOverlayControllerProvider.notifier).toggleOverlay();
 }
+
+
+
+final toggleOverlayControllerProviderBug =
+    StateNotifierProvider<ToggleOverlayControllerBug, bool>((ref) {
+  return ToggleOverlayControllerBug();
+});
+
+//! the state notitfier class for toggling the overlay
+class ToggleOverlayControllerBug extends StateNotifier<bool> {
+  ToggleOverlayControllerBug() : super(false);
+
+  //! toggleOverlay
+  void toggleOverlay() {
+    state = !state;
+  }
+}
+
+//! () => toggleOverlay
+void toggleOverlayBug({
+  required BuildContext context,
+  required WidgetRef ref,
+}) {
+  ref.read(toggleOverlayControllerProviderBug.notifier).toggleOverlay();
+}

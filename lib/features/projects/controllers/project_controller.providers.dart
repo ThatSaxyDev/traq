@@ -18,3 +18,28 @@ final getProjectsForAnOrganisationProvider =
 
   return projectController.getProjectsForAnOrganisation(orgName: orgName);
 });
+
+//! GET PROJECT BY NAME
+final getProjectByNameProvider =
+    StreamProvider.family((ref, String projectName) {
+  final projectController = ref.watch(projectControllerProvider.notifier);
+
+  return projectController.getProjectByName(projectName: projectName);
+});
+
+//! get VERSIONS FOR A PROJECT Provider
+final getVersionsForAProjectProvider =
+    StreamProvider.family((ref, String projectId) {
+  final projectController = ref.watch(projectControllerProvider.notifier);
+
+  return projectController.getVersionsForAProject(projectId: projectId);
+});
+
+//! GET VERSION BY ID
+final getVersionByIdProvider = StreamProvider.family((ref, String versionId) {
+  final projectController = ref.watch(projectControllerProvider.notifier);
+
+  return projectController.getVersionById(versionId: versionId);
+});
+
+final projectModelStateProvider = StateProvider<ProjectModel?>((ref) => null);

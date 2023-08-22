@@ -14,6 +14,7 @@ import 'package:traq/features/base_nav/widgets/side_nav.dart';
 import 'package:traq/features/organisations/controllers/organisation_controller.dart';
 import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
 import 'package:traq/features/projects/widgets/create_project_popup.dart';
+import 'package:traq/features/reports/widgets/bug_report_drawer.dart';
 import 'package:traq/models/organisation_model.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/responsize/screen_type_layout.dart';
@@ -50,6 +51,7 @@ class _BaseNavWrapperState extends ConsumerState<BaseNavWrapper> {
     int indexFromDesktopController =
         ref.watch(baseNavDesktopControllerProvider);
     bool createProjectOpen = ref.watch(toggleOverlayControllerProvider);
+    bool reportBugOpen = ref.watch(toggleOverlayControllerProviderBug);
     AsyncValue<List<OrganisationModel>> asyncListofCreatedOrganisations =
         ref.watch(getUserCreatedOrgsProviderFuture);
     // ProjectColor? projectColor = ref.watch(projectColorControllerProvider);
@@ -93,6 +95,8 @@ class _BaseNavWrapperState extends ConsumerState<BaseNavWrapper> {
             body: user == null || orgFromProvider == null
                 ? const Loadinggg(height: 40)
                 : pages[indexFromController],
+
+            endDrawer: const BugReportDrawer(),
 
             // nav bar
             bottomNavigationBar: Material(
@@ -212,31 +216,46 @@ class _BaseNavWrapperState extends ConsumerState<BaseNavWrapper> {
                                               32.wSpace,
 
                                               //! create button
-                                              BButton(
-                                                width: 135,
-                                                onTap: () {
-                                                  toggleOverlay(
-                                                      context: context,
-                                                      ref: ref);
-                                                },
-                                                isText: false,
-                                                item: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    'Create'.txt14(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Pallete.whiteColor,
-                                                    ),
-                                                    8.wSpace,
-                                                    const MyIcon(
-                                                      icon: 'plus',
-                                                      height: 16,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                              Builder(builder: (context) {
+                                                return BButton(
+                                                  width: 135,
+                                                  onTap: () {
+                                                    if (indexFromDesktopController ==
+                                                        2) {
+                                                      toggleOverlayBug(
+                                                          context: context,
+                                                          ref: ref);
+                                                    } else {
+                                                      toggleOverlay(
+                                                          context: context,
+                                                          ref: ref);
+                                                    }
+                                                  },
+                                                  isText: false,
+                                                  item: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      (indexFromDesktopController ==
+                                                                  2
+                                                              ? 'Report'
+                                                              : 'Create')
+                                                          .txt14(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color:
+                                                            Pallete.whiteColor,
+                                                      ),
+                                                      8.wSpace,
+                                                      const MyIcon(
+                                                        icon: 'plus',
+                                                        height: 16,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }),
                                               40.wSpace,
                                             ],
                                           ),
@@ -264,7 +283,8 @@ class _BaseNavWrapperState extends ConsumerState<BaseNavWrapper> {
 
         //!
         //! drop down overlay
-        if (createProjectOpen == true) const CreateProjectPopup()
+        if (createProjectOpen == true) const CreateProjectPopup(),
+        if (reportBugOpen == true) const BugReportDrawer().alignCenterRight(),
       ],
     );
   }

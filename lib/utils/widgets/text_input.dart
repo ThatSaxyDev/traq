@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class TextInputWidget extends StatelessWidget {
   final double? height;
   final double? width;
@@ -83,7 +82,6 @@ class TextInputWidget extends StatelessWidget {
                 ),
               ),
             ),
-            iconn ?? const SizedBox.shrink(),
             SizedBox(
               height: 44,
               child: TextFormField(

@@ -1,7 +1,6 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:glass/glass.dart';
 import 'package:simple_notifier/simple_notifier.dart';
 import 'package:traq/features/organisations/controllers/organisation_controller.dart';
 import 'package:traq/features/projects/controllers/project_controller.dart';
@@ -196,13 +195,7 @@ class _CreateProjectPopupState extends ConsumerState<CreateProjectPopup> {
             animatiomDuration: 100.ms,
           ),
         ),
-      )
-          .asGlass(
-            tintColor: Pallete.blackTint.withOpacity(0.2),
-            blurX: 5,
-            blurY: 5,
-          )
-          .fadeIn(delay: 0.ms, animatiomDuration: 100.ms),
+      ).fadeIn(delay: 0.ms, animatiomDuration: 100.ms),
     );
   }
 }
