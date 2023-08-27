@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
@@ -43,31 +44,43 @@ class _TraqState extends ConsumerState<Traq> {
   @override
   Widget build(BuildContext context) {
     return ref.watch(authStateChangeProvider).when(
-        data: (User? userData) => ResponsiveApp(builder: (context) {
-              return MaterialApp.router(
-                title: AppTexts.appName,
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  fontFamily: AppTexts.appFont,
-                  colorScheme:
-                      ColorScheme.fromSeed(seedColor: Pallete.blueColor),
-                  useMaterial3: true,
-                ),
-                routerDelegate: RoutemasterDelegate(
-                  routesBuilder: (context) {
-                    if (userData != null) {
-                      getData(ref: ref, data: userData);
-                      if (userModel != null) {
-                        return loggedInRoute;
-                      }
-                    }
-                    return loggedOutRoute;
-                  },
-                ),
-                routeInformationParser: const RoutemasterParser(),
-              );
-            }),
-        // ScreenUtilInit(
+        data: (User? userData) => ResponsiveApp(
+              builder: (context) {
+                return ScreenUtilInit(
+                    designSize: const Size(375, 812),
+                    minTextAdapt: true,
+                    splitScreenMode: false,
+                    builder: (context, child) {
+                      return Builder(
+                        builder: (context) {
+                          return MaterialApp.router(
+                            title: AppTexts.appName,
+                            debugShowCheckedModeBanner: false,
+                            theme: ThemeData(
+                              fontFamily: AppTexts.appFont,
+                              colorScheme: ColorScheme.fromSeed(
+                                  seedColor: Pallete.blueColor),
+                              useMaterial3: true,
+                            ),
+                            routerDelegate: RoutemasterDelegate(
+                              routesBuilder: (context) {
+                                if (userData != null) {
+                                  getData(ref: ref, data: userData);
+                                  if (userModel != null) {
+                                    return loggedInRoute;
+                                  }
+                                }
+                                return loggedOutRoute;
+                              },
+                            ),
+                            routeInformationParser: const RoutemasterParser(),
+                          );
+                        }
+                      );
+                    });
+              },
+            ),
+      // ScreenUtilInit(
         //   designSize: const Size(375, 812),
         //   minTextAdapt: true,
         //   splitScreenMode: false,

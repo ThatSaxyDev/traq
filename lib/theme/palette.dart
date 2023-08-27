@@ -35,6 +35,22 @@ class Pallete {
   static const textGreen = Color(0xff4E6139);
   static const blueColor = Color(0xFF294EAB);
 
+  static const Color critical = Color.fromRGBO(247, 207, 211, 1);
+  static const Color criticalDarker =
+      Color.fromRGBO(140, 40, 60, 1); // Darker version
+
+  static const Color high = Color.fromRGBO(250, 225, 184, 1);
+  static const Color highDarker =
+      Color.fromRGBO(130, 70, 20, 1); // Darker version
+
+  static const Color medium = Color.fromRGBO(241, 243, 200, 1);
+  static const Color mediumDarker =
+      Color.fromRGBO(110, 140, 20, 1); // Darker version
+
+  static const Color low = Color.fromRGBO(254, 249, 202, 1);
+  static const Color lowDarker =
+      Color.fromRGBO(140, 140, 20, 1); // Darker version
+
   //! ****
 
   static const textBlack = Color(0xff101828);

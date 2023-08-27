@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class TextInputWidget extends StatelessWidget {
   final double? height;
+  final double? fieldHeight;
   final double? width;
   final String hintText;
   final String inputTitle;
@@ -29,9 +32,11 @@ class TextInputWidget extends StatelessWidget {
   final TextCapitalization? textCapitalization;
   final bool? readOnly;
   final bool? autofocus;
+  final int? maxLines;
   const TextInputWidget({
     Key? key,
     this.height,
+    this.fieldHeight,
     this.width,
     required this.hintText,
     required this.inputTitle,
@@ -56,6 +61,7 @@ class TextInputWidget extends StatelessWidget {
     this.textCapitalization,
     this.readOnly,
     this.autofocus,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -65,7 +71,8 @@ class TextInputWidget extends StatelessWidget {
       highlightColor: Colors.transparent,
       onTap: onTap,
       child: SizedBox(
-        height: 68,
+        height: height ??
+            getValueForScreenType(context: context, mobile: 68.h, desktop: 68),
         width: width ?? double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,15 +83,19 @@ class TextInputWidget extends StatelessWidget {
               style: GoogleFonts.manrope(
                 textStyle: TextStyle(
                   color: titleColor ?? const Color(0xFF6B7280),
-                  fontSize: 14,
+                  fontSize: getValueForScreenType(
+                      context: context, mobile: 14.sp, desktop: 14),
                   fontWeight: titleFontWeight,
                   height: 1.43,
                 ),
               ),
             ),
             SizedBox(
-              height: 44,
+              height: fieldHeight ??
+                  getValueForScreenType(
+                      context: context, mobile: 44.h, desktop: 44),
               child: TextFormField(
+                maxLines: maxLines,
                 autofocus: autofocus ?? false,
                 readOnly: readOnly ?? false,
                 textCapitalization:
@@ -98,9 +109,10 @@ class TextInputWidget extends StatelessWidget {
                 onFieldSubmitted: onFieldSubmitted,
                 onChanged: onChanged,
                 style: GoogleFonts.manrope(
-                  textStyle: const TextStyle(
-                    color: Color(0xFF111827),
-                    fontSize: 14,
+                  textStyle: TextStyle(
+                    color: const Color(0xFF111827),
+                    fontSize: getValueForScreenType(
+                        context: context, mobile: 14.sp, desktop: 14),
                     fontWeight: FontWeight.w500,
                     height: 1.43,
                   ),
@@ -115,8 +127,14 @@ class TextInputWidget extends StatelessWidget {
                   filled: true,
                   // isDense: true,
                   suffix: suffix,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 10)
-                      .copyWith(left: 12),
+                  contentPadding: getValueForScreenType(
+                    context: context,
+                    mobile: EdgeInsets.symmetric(vertical: 10.h)
+                        .copyWith(left: 12.w),
+                    desktop: const EdgeInsets.symmetric(vertical: 10)
+                        .copyWith(left: 12),
+                  ),
+
                   helperText: " ",
                   helperStyle: const TextStyle(fontSize: 0.0005),
                   errorStyle: const TextStyle(fontSize: 0.0005),
@@ -125,9 +143,10 @@ class TextInputWidget extends StatelessWidget {
                       const BoxConstraints(minHeight: 20, minWidth: 20),
                   hintText: hintText,
                   hintStyle: GoogleFonts.manrope(
-                    textStyle: const TextStyle(
-                      color: Color(0xFF9CA3AF),
-                      fontSize: 14,
+                    textStyle: TextStyle(
+                      color: const Color(0xFF9CA3AF),
+                      fontSize: getValueForScreenType(
+                          context: context, mobile: 14.sp, desktop: 14),
                       fontWeight: FontWeight.w500,
                       height: 1.43,
                     ),

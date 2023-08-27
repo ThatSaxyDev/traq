@@ -61,6 +61,10 @@ dependencies:
   google_fonts: ^4.0.4
   simple_notifier: ^1.0.2
   animate_to: ^0.1.0
+  flutter_screenutil: ^5.9.0
+  flextras: ^1.0.0
+  extra_alignments: ^1.0.0+1
+  flutter_keyboard_visibility: ^5.4.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.12.0

@@ -28,12 +28,8 @@ void moveToPage({
 
 //! List of pages
 List<Widget> pages = [
-  Center(
-    child: 'home'.txt(size: 12),
-  ),
-  Center(
-    child: 'zz'.txt(size: 12),
-  ),
+  const DashboardMobileView(),
+  const ProjectMobileView(),
   Center(
     child: 'wfwe'.txt(size: 12),
   ),
@@ -44,24 +40,24 @@ List<Widget> pages = [
 
 //! nav widget enums
 enum Nav {
-  home(PhosphorIcons.houseSimple, PhosphorIcons.houseSimpleFill),
-  search(PhosphorIcons.magnifyingGlass, PhosphorIcons.magnifyingGlass),
-  // stream(PhosphorIcons.pen, PhosphorIcons.pen),
-  notification(PhosphorIcons.notification, PhosphorIcons.notificationFill),
-  profile(PhosphorIcons.user, PhosphorIcons.userFill);
+  dashboard('Dashboard', 'dashboardselmob', 'dashunmob'),
+  projects('Projects', 'projselmob', 'projunmob'),
+  reports('Reports', 'repselmob', 'repunmob'),
+  settings('Settings', 'setunmob', 'setunmob');
 
   const Nav(
+    this.label,
     this.icon,
-    this.selectedIcon,
+    this.unselectedicon,
   );
-  final IconData icon;
-  final IconData selectedIcon;
+  final String label;
+  final String icon;
+  final String unselectedicon;
 }
 
 List<Nav> nav = [
-  Nav.home,
-  Nav.search,
-  // Nav.stream,
-  Nav.notification,
-  Nav.profile,
+  Nav.dashboard,
+  Nav.projects,
+  Nav.reports,
+  Nav.settings,
 ];

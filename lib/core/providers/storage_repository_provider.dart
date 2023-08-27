@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:traq/utils/failure.dart';
 
-final storageRepositoryProvider = Provider(
+Provider<StorageRepository> storageRepositoryProvider = Provider(
   (ref) => StorageRepository(
     firebaseStorage: ref.watch(storageProvider),
   ),
@@ -26,13 +26,13 @@ class StorageRepository {
     required Uint8List? webFile,
   }) async {
     try {
-      final ref = _firebaseStorage.ref().child(path).child(id);
+      Reference reference = _firebaseStorage.ref().child(path).child(id);
       UploadTask uploadTask;
 
       if (kIsWeb) {
-        uploadTask = ref.putData(webFile!);
+        uploadTask = reference.putData(webFile!);
       } else {
-        uploadTask = ref.putFile(file!);
+        uploadTask = reference.putFile(file!);
       }
 
       final snapshot = await uploadTask;

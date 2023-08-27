@@ -6,6 +6,8 @@ import 'package:traq/features/organisations/controllers/organisation_controller.
 import 'package:traq/features/projects/controllers/project_controller.dart';
 import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
 import 'package:traq/features/projects/widgets/project_card.dart';
+import 'package:traq/features/reports/controllers/reports_controller.dart';
+import 'package:traq/models/bug_model.dart';
 import 'package:traq/models/organisation_model.dart';
 import 'package:traq/models/project_model.dart';
 import 'package:traq/theme/palette.dart';
@@ -38,6 +40,8 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
         ref.watch(getProjectByNameProvider(widget.projectModel.name));
     OrganisationModel? orgFromProvider =
         ref.watch(orgModelStateControllerProvider);
+    AsyncValue<List<BugModel>> bugsStream =
+        ref.watch(getAllBugsForAVersionProvider);
     return projectt.when(
       data: (ProjectModel project) {
         return Container(
@@ -155,7 +159,9 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                           (index) => ProjectVersionCard(
                             index: index,
                             versionId: project.versions[index],
-                          ),
+                          ).tap(onTap: () {
+                            setState(() {});
+                          }),
                         ),
                       ),
                       32.hSpace,
@@ -183,7 +189,10 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                   ),
                 ),
 
-                //! version details
+                //! VERSION DETAILS // VERSION DETAILS
+                //! VERSION DETAILS // VERSION DETAILS
+                //! VERSION DETAILS // VERSION DETAILS
+                //! VERSION DETAILS // VERSION DETAILS
                 SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,40 +228,42 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                               ],
                             ),
                             const Spacer(),
-                            SizedBox(
-                              height: 40,
-                              width: 70,
-                              child: Stack(
-                                children: List.generate(
-                                  2,
-                                  (index) => Positioned(
-                                    left: switch (index) {
-                                      0 => 0,
-                                      _ => (29 * index).toDouble(),
-                                    },
-                                    child: const CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: Pallete.whiteColor,
-                                      child: CircleAvatar(
-                                        radius: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   height: 40,
+                            //   width: 70,
+                            //   child: Stack(
+                            //     children: List.generate(
+                            //       2,
+                            //       (index) => Positioned(
+                            //         left: switch (index) {
+                            //           0 => 0,
+                            //           _ => (29 * index).toDouble(),
+                            //         },
+                            //         child: const CircleAvatar(
+                            //           radius: 20,
+                            //           backgroundColor: Pallete.whiteColor,
+                            //           child: CircleAvatar(
+                            //             radius: 18,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                             24.wSpace,
 
                             //! ADD NEW VERSION TO PROJECT
                             TransparentButton(
                               height: 40,
                               width: 178,
-                              onTap: () {},
+                              onTap: () {
+                                toggleOverlayBug(context: context, ref: ref);
+                              },
                               isText: false,
                               item: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  'Add Member'.txt14(
+                                  'Report bug'.txt14(
                                       fontWeight: FontWeight.w500,
                                       isheader: true),
                                   8.wSpace,
@@ -273,211 +284,226 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
                           .alignCenterLeft(),
                       16.hSpace,
 
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            //! unsolved bugs
-                            Container(
-                              width: 280,
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                    width: 2,
-                                    color: Color(0xFF4A21C1),
-                                  ),
-                                ),
-                              ),
-                              child: Column(
-                                children: [
-                                  16.hSpace,
-
-                                  //! unsolved
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        'UNSOLVED (2)'
-                                            .txt14(fontWeight: FontWeight.w600),
-                                        const MyIcon(icon: 'morehoriz'),
-                                      ],
-                                    ),
-                                  ),
-
-                                  16.hSpace,
-                                  SizedBox(
-                                    height: 700,
-                                    child: SingleChildScrollView(
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(
-                                              parent: BouncingScrollPhysics()),
-                                      child: Column(
-                                        children: List.generate(
-                                          7,
-                                          (index) => const BugCard(),
-                                        ),
+                      bugsStream.when(
+                        data: (List<BugModel> bugs) {
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                //! unsolved bugs
+                                Container(
+                                  width: 280,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        width: 2,
+                                        color: Color(0xFF4A21C1),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            32.wSpace,
+                                  child: Column(
+                                    children: [
+                                      16.hSpace,
 
-                            //! in progress
-                            Container(
-                              width: 280,
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                    width: 2,
-                                    color: Color(0xFFF59E0B),
+                                      //! unsolved
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            'UNSOLVED (2)'.txt14(
+                                                fontWeight: FontWeight.w600),
+                                            const MyIcon(icon: 'morehoriz'),
+                                          ],
+                                        ),
+                                      ),
+
+                                      16.hSpace,
+                                      SizedBox(
+                                        height: 700,
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                                  parent:
+                                                      BouncingScrollPhysics()),
+                                          child: Column(
+                                            children: List.generate(
+                                              7,
+                                              (index) => const BugCard(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              child: Column(
-                                children: [
-                                  16.hSpace,
+                                32.wSpace,
 
-                                  //! in progress
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        'IN PROGRESS (2)'
-                                            .txt14(fontWeight: FontWeight.w600),
-                                        const MyIcon(icon: 'morehoriz'),
-                                      ],
-                                    ),
-                                  ),
-
-                                  16.hSpace,
-                                  SizedBox(
-                                    height: 700,
-                                    child: SingleChildScrollView(
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(
-                                              parent: BouncingScrollPhysics()),
-                                      child: Column(
-                                        children: List.generate(
-                                          7,
-                                          (index) => const BugCard(),
-                                        ),
+                                //! in progress
+                                Container(
+                                  width: 280,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        width: 2,
+                                        color: Color(0xFFF59E0B),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            32.wSpace,
+                                  child: Column(
+                                    children: [
+                                      16.hSpace,
 
-                            //! in review
-                            Container(
-                              width: 280,
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                    width: 2,
-                                    color: Color(0xFFEF4444),
+                                      //! in progress
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            'IN PROGRESS (2)'.txt14(
+                                                fontWeight: FontWeight.w600),
+                                            const MyIcon(icon: 'morehoriz'),
+                                          ],
+                                        ),
+                                      ),
+
+                                      16.hSpace,
+                                      SizedBox(
+                                        height: 700,
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                                  parent:
+                                                      BouncingScrollPhysics()),
+                                          child: Column(
+                                            children: List.generate(
+                                              7,
+                                              (index) => const BugCard(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              child: Column(
-                                children: [
-                                  16.hSpace,
+                                32.wSpace,
 
-                                  //! in progress
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        'IN REVIEW (2)'
-                                            .txt14(fontWeight: FontWeight.w600),
-                                        const MyIcon(icon: 'morehoriz'),
-                                      ],
-                                    ),
-                                  ),
-
-                                  16.hSpace,
-                                  SizedBox(
-                                    height: 700,
-                                    child: SingleChildScrollView(
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(
-                                              parent: BouncingScrollPhysics()),
-                                      child: Column(
-                                        children: List.generate(
-                                          7,
-                                          (index) => const BugCard(),
-                                        ),
+                                //! in review
+                                Container(
+                                  width: 280,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        width: 2,
+                                        color: Color(0xFFEF4444),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
+                                  child: Column(
+                                    children: [
+                                      16.hSpace,
 
-                            32.wSpace,
+                                      //! in progress
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            'IN REVIEW (2)'.txt14(
+                                                fontWeight: FontWeight.w600),
+                                            const MyIcon(icon: 'morehoriz'),
+                                          ],
+                                        ),
+                                      ),
 
-                            //! resolved
-                            Container(
-                              width: 280,
-                              decoration: const BoxDecoration(
-                                border: Border(
-                                  top: BorderSide(
-                                    width: 2,
-                                    color: Color(0xFF22C55E),
+                                      16.hSpace,
+                                      SizedBox(
+                                        height: 700,
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                                  parent:
+                                                      BouncingScrollPhysics()),
+                                          child: Column(
+                                            children: List.generate(
+                                              7,
+                                              (index) => const BugCard(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              child: Column(
-                                children: [
-                                  16.hSpace,
 
-                                  //! resolved
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        'RESOLVED (2)'
-                                            .txt14(fontWeight: FontWeight.w600),
-                                        const MyIcon(icon: 'morehoriz'),
-                                      ],
-                                    ),
-                                  ),
+                                32.wSpace,
 
-                                  16.hSpace,
-                                  SizedBox(
-                                    height: 700,
-                                    child: SingleChildScrollView(
-                                      physics:
-                                          const AlwaysScrollableScrollPhysics(
-                                              parent: BouncingScrollPhysics()),
-                                      child: Column(
-                                        children: List.generate(
-                                          7,
-                                          (index) => const BugCard(),
-                                        ),
+                                //! resolved
+                                Container(
+                                  width: 280,
+                                  decoration: const BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                        width: 2,
+                                        color: Color(0xFF22C55E),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                  child: Column(
+                                    children: [
+                                      16.hSpace,
+
+                                      //! resolved
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            'RESOLVED (2)'.txt14(
+                                                fontWeight: FontWeight.w600),
+                                            const MyIcon(icon: 'morehoriz'),
+                                          ],
+                                        ),
+                                      ),
+
+                                      16.hSpace,
+                                      SizedBox(
+                                        height: 700,
+                                        child: SingleChildScrollView(
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                                  parent:
+                                                      BouncingScrollPhysics()),
+                                          child: Column(
+                                            children: List.generate(
+                                              7,
+                                              (index) => const BugCard(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          );
+                        },
+                        error: (error, stackTrace) {
+                          error.toString().log();
+                          return const SizedBox.shrink();
+                        },
+                        loading: () {
+                          return const Loadinggg(height: 40);
+                        },
                       ),
                     ],
                   ),
@@ -488,7 +514,7 @@ class _ProjectDesktopViewState extends ConsumerState<ProjectDesktopView> {
         );
       },
       error: (error, stackTrace) {
-        error.toString().log();
+        stackTrace.log();
         return const SizedBox.shrink();
       },
       loading: () {

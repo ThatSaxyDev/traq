@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
+import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/shared/app_grafiks.dart';
 import 'package:traq/theme/palette.dart';
 import 'package:traq/utils/app_extensions.dart';
@@ -40,7 +42,8 @@ class BButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 52,
+      height: height ??
+          getValueForScreenType(context: context, mobile: 44.h, desktop: 44),
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
@@ -51,7 +54,11 @@ class BButton extends StatelessWidget {
               color: borderColor ?? Colors.transparent,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 4),
+              Radius.circular(
+                radius ??
+                    getValueForScreenType(
+                        context: context, mobile: 24.r, desktop: 24),
+              ),
             ),
           ),
           padding: padding ?? EdgeInsets.zero,
@@ -65,7 +72,8 @@ class BButton extends StatelessWidget {
                   text ?? '',
                   style: TextStyle(
                     color: textColor ?? Pallete.whiteColor,
-                    fontSize: 16,
+                    fontSize: getValueForScreenType(
+                        context: context, mobile: 14.sp, desktop: 14),
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -104,7 +112,8 @@ class TransparentButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? 52,
+      height: height ??
+          getValueForScreenType(context: context, mobile: 44.h, desktop: 44),
       width: width ?? double.infinity,
       child: ElevatedButton(
         onPressed: onTap,
@@ -115,7 +124,11 @@ class TransparentButton extends StatelessWidget {
               color: color ?? Pallete.greey,
             ),
             borderRadius: BorderRadius.all(
-              Radius.circular(radius ?? 8),
+              Radius.circular(
+                radius ??
+                    getValueForScreenType(
+                        context: context, mobile: 24.r, desktop: 24),
+              ),
             ),
           ),
           elevation: 0,
@@ -125,7 +138,9 @@ class TransparentButton extends StatelessWidget {
         ),
         child: Center(
           child: isText == true
-              ? (text ?? '').txt14(
+              ? (text ?? '').txt(
+                  size: getValueForScreenType(
+                      context: context, mobile: 14.sp, desktop: 14),
                   isheader: true,
                   fontWeight: FontWeight.w500,
                 )
@@ -153,15 +168,32 @@ class GButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TransparentButton(
-      height: 60,
-      width: 300,
+      height: getValueForScreenType(
+        context: context,
+        mobile: 60.h,
+        desktop: 60,
+      ),
+      width: getValueForScreenType(
+        context: context,
+        mobile: 300.w,
+        desktop: 300,
+      ),
       onTap: () => signInWithGoogle(context: context, ref: ref),
       isText: false,
       item: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const MyIcon(icon: AppGrafiks.google, height: 20),
-          15.wSpace,
+          MyIcon(
+              icon: AppGrafiks.google,
+              height: getValueForScreenType(
+                context: context,
+                mobile: 20.sp,
+                desktop: 20,
+              )),
+          ScreenTypeLayoutWrapper(
+            mobile: 15.sbW,
+            desktop: 15.wSpace,
+          ),
           'Continue With Google'.txt16(
             fontWeight: FontWeight.w500,
             isheader: true,
@@ -172,92 +204,92 @@ class GButton extends ConsumerWidget {
   }
 }
 
-class AppleButton extends ConsumerWidget {
-  final bool? isFromLogin;
-  const AppleButton({
-    Key? key,
-    this.isFromLogin,
-  }) : super(key: key);
+// class AppleButton extends ConsumerWidget {
+//   final bool? isFromLogin;
+//   const AppleButton({
+//     Key? key,
+//     this.isFromLogin,
+//   }) : super(key: key);
 
-  void signInWithGoogle(
-      {required BuildContext context, required WidgetRef ref}) {
-    // ref
-    //     .read(authControllerProvider.notifier)
-    //     .signInWithGoogle(context: context);
-  }
+//   void signInWithGoogle(
+//       {required BuildContext context, required WidgetRef ref}) {
+//     // ref
+//     //     .read(authControllerProvider.notifier)
+//     //     .signInWithGoogle(context: context);
+//   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final currentTheme = ref.watch(themeNotifierProvider);
-    return ClickButton(
-      onTap: () => signInWithGoogle(context: context, ref: ref),
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          60.wSpace,
-          Image.asset(
-            'apple'.png,
-            height: 23.sh,
-            color: currentTheme.textTheme.bodyMedium!.color,
-          ),
-          15.wSpace,
-          Text(
-            'Continue With Apple',
-            style: TextStyle(
-              fontSize: 16.sw,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final currentTheme = ref.watch(themeNotifierProvider);
+//     return ClickButton(
+//       onTap: () => signInWithGoogle(context: context, ref: ref),
+//       child: Row(
+//         // mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           60.wSpace,
+//           Image.asset(
+//             'apple'.png,
+//             height: 23.sh,
+//             color: currentTheme.textTheme.bodyMedium!.color,
+//           ),
+//           15.wSpace,
+//           Text(
+//             'Continue With Apple',
+//             style: TextStyle(
+//               fontSize: 16.sw,
+//               fontWeight: FontWeight.bold,
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class TTransparentButton extends StatelessWidget {
-  final double? height;
-  final double? width;
-  final double? padding;
-  final void Function()? onTap;
-  final Color color;
-  final Widget child;
-  const TTransparentButton({
-    Key? key,
-    this.height,
-    this.width,
-    this.padding,
-    required this.onTap,
-    required this.color,
-    required this.child,
-  }) : super(key: key);
+// class TTransparentButton extends StatelessWidget {
+//   final double? height;
+//   final double? width;
+//   final double? padding;
+//   final void Function()? onTap;
+//   final Color color;
+//   final Widget child;
+//   const TTransparentButton({
+//     Key? key,
+//     this.height,
+//     this.width,
+//     this.padding,
+//     required this.onTap,
+//     required this.color,
+//     required this.child,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 33.3.sh,
-      width: 40.sw,
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: color,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(5.sw),
-              ),
-            ),
-            elevation: 0,
-            shadowColor: Colors.transparent,
-            backgroundColor: Colors.transparent,
-            padding: EdgeInsets.symmetric(
-              vertical: padding ?? 0,
-            )),
-        child: Center(
-          child: child,
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SizedBox(
+//       height: 33.3.sh,
+//       width: 40.sw,
+//       child: ElevatedButton(
+//         onPressed: onTap,
+//         style: ElevatedButton.styleFrom(
+//             shape: RoundedRectangleBorder(
+//               side: BorderSide(
+//                 width: 1,
+//                 color: color,
+//               ),
+//               borderRadius: BorderRadius.all(
+//                 Radius.circular(5.sw),
+//               ),
+//             ),
+//             elevation: 0,
+//             shadowColor: Colors.transparent,
+//             backgroundColor: Colors.transparent,
+//             padding: EdgeInsets.symmetric(
+//               vertical: padding ?? 0,
+//             )),
+//         child: Center(
+//           child: child,
+//         ),
+//       ),
+//     );
+//   }
+// }

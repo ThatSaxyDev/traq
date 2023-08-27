@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:traq/features/auth/controller/auth_controller.dart';
 import 'package:traq/responsize/screen_type_layout.dart';
 import 'package:traq/theme/palette.dart';
@@ -30,7 +31,7 @@ class LoginView extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       'traq'.txt(
-                        size: 40,
+                        size: 40.sp,
                         fontWeight: FontWeight.w600,
                         color: Pallete.blueColor,
                       ),

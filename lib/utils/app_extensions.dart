@@ -2,7 +2,9 @@
 import "dart:developer" as dev_tools show log;
 import "dart:io";
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:intl/intl.dart";
 import "package:responsive_builder/responsive_builder.dart";
@@ -16,6 +18,41 @@ extension Log on Object {
 //! HELPS TO CALL A .dismissKeyboard ON A WIDGET
 extension DismissKeyboard on Widget {
   void dismissKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
+}
+
+extension AppHapticFeedback on Widget {
+  Widget withHapticFeedback({
+    required VoidCallback? onTap,
+    required AppHapticFeedbackType feedbackType,
+  }) =>
+      InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async => {
+          onTap?.call(),
+          switch (feedbackType) {
+            AppHapticFeedbackType.lightImpact =>
+              await HapticFeedback.lightImpact(),
+            AppHapticFeedbackType.mediumImpact =>
+              await HapticFeedback.mediumImpact(),
+            AppHapticFeedbackType.heavyImpact =>
+              await HapticFeedback.heavyImpact(),
+            AppHapticFeedbackType.selectionClick =>
+              await HapticFeedback.selectionClick(),
+            AppHapticFeedbackType.vibrate => await HapticFeedback.vibrate(),
+          }
+        },
+        child: this,
+      );
+}
+
+//! FOR HAPTIC FEEDBACK
+enum AppHapticFeedbackType {
+  lightImpact,
+  mediumImpact,
+  heavyImpact,
+  selectionClick,
+  vibrate,
 }
 
 const ext = 0;
@@ -38,6 +75,36 @@ extension StringCasingExtension on String {
   String? trimToken() => contains(":") ? split(":")[1].trim() : this;
   String? trimSpaces() => replaceAll(" ", "");
   String removeSpacesAndLower() => replaceAll(' ', '').toLowerCase();
+}
+
+extension WidgetExtensionss on num {
+  Widget get sbH => SizedBox(
+        height: h,
+      );
+
+  Widget get sbW => SizedBox(
+        width: w,
+      );
+
+  EdgeInsetsGeometry get padV => EdgeInsets.symmetric(vertical: h);
+
+  EdgeInsetsGeometry get padH => EdgeInsets.symmetric(horizontal: w);
+}
+
+extension WidgetExtensions on double {
+  Widget get sbH => SizedBox(
+        height: h,
+      );
+
+  Widget get sbW => SizedBox(
+        width: w,
+      );
+
+  EdgeInsetsGeometry get padA => EdgeInsets.all(this);
+
+  EdgeInsetsGeometry get padV => EdgeInsets.symmetric(vertical: h);
+
+  EdgeInsetsGeometry get padH => EdgeInsets.symmetric(horizontal: w);
 }
 
 extension SpacingExtension on double {

@@ -11,8 +11,10 @@ import 'package:traq/features/base_nav/widgets/base_nav_view.desktopcontroller.d
 import 'package:traq/features/base_nav/widgets/nav_bar_widget.dart';
 import 'package:traq/features/base_nav/widgets/search_bar.dart';
 import 'package:traq/features/base_nav/widgets/side_nav.dart';
+import 'package:traq/features/dashboard/views/dashboard_mobile_view.dart';
 import 'package:traq/features/organisations/controllers/organisation_controller.dart';
 import 'package:traq/features/projects/views/project_desktop_view_controller.dart';
+import 'package:traq/features/projects/views/projects_mobile_view.dart';
 import 'package:traq/features/projects/widgets/create_project_popup.dart';
 import 'package:traq/features/reports/widgets/bug_report_drawer.dart';
 import 'package:traq/models/organisation_model.dart';
@@ -96,7 +98,7 @@ class _BaseNavWrapperState extends ConsumerState<BaseNavWrapper> {
                 ? const Loadinggg(height: 40)
                 : pages[indexFromController],
 
-            endDrawer: const BugReportDrawer(),
+            // endDrawer: const BugReportDrawer(),
 
             // nav bar
             bottomNavigationBar: Material(
@@ -222,9 +224,6 @@ class _BaseNavWrapperState extends ConsumerState<BaseNavWrapper> {
                                                   onTap: () {
                                                     if (indexFromDesktopController ==
                                                         2) {
-                                                      toggleOverlayBug(
-                                                          context: context,
-                                                          ref: ref);
                                                     } else {
                                                       toggleOverlay(
                                                           context: context,

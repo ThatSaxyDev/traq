@@ -7,6 +7,8 @@ import 'package:traq/features/base_nav/views/base_nav_view.dart';
 import 'package:traq/features/organisations/views/create_organisation_view.dart';
 import 'package:traq/features/profile/views/choose_user_type.dart';
 import 'package:traq/features/profile/views/nickname_input_view.dart';
+import 'package:traq/features/projects/views/project_versions_view.dart';
+import 'package:traq/features/projects/views/version_bugs_view.dart';
 import 'package:traq/models/user_model.dart';
 import 'package:traq/shared/app_routes.dart';
 
@@ -41,6 +43,17 @@ RouteMap loggedInRoute = RouteMap(
         ),
     AppRoutes.baseNav: (_) => const MaterialPage(
           child: BaseNavWrapper(),
+        ),
+    AppRoutes.project: (routeData) => MaterialPage(
+          child: ProjectVersionsView(
+            projectName: routeData.pathParameters['projectname']!,
+          ),
+        ),
+    AppRoutes.version: (routeData) => MaterialPage(
+          child: VersionBugsView(
+            versionName: routeData.pathParameters['versionname']!,
+            projectName: routeData.pathParameters['projectname']!,
+          ),
         ),
     // '/profile/:userId': (routeData) => MaterialPage(
     //       child: OtherUserProfileView(
